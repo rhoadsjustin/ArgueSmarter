@@ -8,7 +8,6 @@ import {
 } from 'native-base';
 import { View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-
 import styles from './styles'
 
 
@@ -21,7 +20,7 @@ export default () => (
           ios="ios-mic-off"
           android="md-happy"
         />
-        <Text style={styles.welcome}>Argue Smarter</Text>
+        <Text style={styles.welcome}>Argue Worse</Text>
       </View>
       <View style={styles.buttonContainer}>
         <Button

@@ -12,35 +12,36 @@ import {
 
 import SinglePost from '../../components/SinglePost';
 import FeedNavbar from '../../components/FeedNavbar';
-import { loadPosts } from '../../redux/reducers/posts';
+import { loadTeams } from '../../redux/reducers/teams';
 import { logoutUser } from '../../redux/reducers/users';
 import styles from './styles';
 
-const mapStateToProps = ({ posts }) => ({ posts });
+const mapStateToProps = ({ teams }) => ({ teams });
 
-const mapDispatchToProps = { loadPosts, logoutUser };
+const mapDispatchToProps = { loadTeams, logoutUser };
 
-const renderPost = (post, index) => (
+const renderTeam = (team, index) => (
   <SinglePost
-    key={index}
-    name={post.name}
-    username={post.username}
-    profilePicture={post.profilePicture}
-    content={post.content}
+    uniqueID={team['_id']}
+    key={team.key}
+    name={team.name}
+    city={team.city}
+    teamPicture={team.WikipediaLogoUrl}
+    division={team.division}
   />
 )
 
 class Feed extends Component {
   componentDidMount(){
-    this.props.loadPosts();
+    this.props.loadTeams();
   }
 
   render(){
-    const endMsg = this.props.posts.length === 0 ? "There aren't any posts yet!" : "That's all the posts for now!"
+    const endMsg = this.props.teams.length === 0 ? "There aren't any teams yet!" : "That's all the posts for now!"
 
     return (
       <Container>
-        <FeedNavbar logout={this.props.logoutUser} refresh={this.props.loadPosts} />
+        <FeedNavbar logout={this.props.logoutUser} refresh={this.props.loadTeams} />
         <Content>
           <List>
             {

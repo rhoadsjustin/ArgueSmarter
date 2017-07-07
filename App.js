@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, AppRegistry } from 'react-native';
 import Router from './config/routes';
 import { Font, AppLoading } from 'expo';
+import { Provider, connect } from 'react-redux';
+import store from './redux/store';
 
 
 export default class App extends React.Component {
@@ -27,8 +29,9 @@ export default class App extends React.Component {
       return <AppLoading />;
     }
     return (
+      <Provider store={store}>
         <Router />
-
+      </Provider>
     );
   }
 }

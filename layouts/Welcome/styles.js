@@ -13,6 +13,7 @@ export default {
   welcome: {
     fontFamily: 'ESPN-BoldItl',
     fontSize: 48,
+    color: 'red',
   },
   buttonContainer: {
     flex: 1,

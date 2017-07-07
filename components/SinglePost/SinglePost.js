@@ -5,13 +5,13 @@ import styles from './styles';
 
 export default (props) => (
   <ListItem>
-      <Thumbnail size={60} source={props.profilePicture} />
+      <Thumbnail size={60} source={props.teamPicture} />
       <Body>
         <View style={styles.nameContainer}>
           <Text style={styles.name}>{props.name}</Text>
-          <Text style={styles.username}>@{props.username}</Text>
+          <Text style={styles.username}>@{props.city}</Text>
         </View>
-        <Text style={styles.content}>{props.content}</Text>
+        <Text style={styles.content}>{props.division}</Text>
       </Body>
   </ListItem>
 )

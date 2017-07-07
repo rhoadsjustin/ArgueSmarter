@@ -10,7 +10,7 @@ import {
   Text,
   Form,
   Thumbnail,
-  Icon
+  Icon, Picker
 } from 'native-base';
 import axios from 'axios';
 
@@ -37,6 +37,8 @@ const validate = form => {
   return errorMessage;
 }
 
+const Item = Picker.Item;
+
 class Signup extends Component {
   constructor() {
     super();
@@ -45,6 +47,7 @@ class Signup extends Component {
       lastName: '',
       username: '',
       password: '',
+      favTeam: '',
       image: null,
       error: '',
     };
@@ -107,6 +110,23 @@ class Signup extends Component {
               value={this.state.password}
               onChangeText={(text) => this.setState({password: text})}
             />
+            {/* <TextField
+              name="Favorite Team"
+              value={this.state.favTeam}
+              onChangeText={(text) => this.setState({favTeam: text})}
+            /> */}
+            <Picker
+              iosHeader="Select one"
+              mode="dropdown"
+              selectedValue={this.state.favTeam}
+              onValueChange={(value) => this.setState({favTeam: value})}
+            >
+              <Item label="Atlanta Hawks" value="ATL" />
+              <Item label="Boston Celtic" value="BOS" />
+              <Item label="Brooklyn Nets" value="BKN" />
+              <Item label="Charlotte Hornets" value="CHA" />
+              <Item label="Chicago Bulls" value="CHI" />
+            </Picker>
           </Form>
           <Text style={styles.addPic}>Add a profile picture</Text>
           {
