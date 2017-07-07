@@ -102,7 +102,7 @@ export const authenticate = user => dispatch => {
           username: userData.metadata.username,
           name: userData.metadata.name,
           profilePicture: userData.metadata.profile_picture,
-          favTeam: userData.metada.favTeam,
+          favTeam: userData.metadata.favTeam,
           slug: userData.slug,
           id: userData._id,
         }

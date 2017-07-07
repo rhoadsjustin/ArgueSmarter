@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
-import nbaConfig from '../../config/NBAapi';
+import NBA from '../../config/cosmic';
 
 // Constants
 const INITIALIZE = 'INITIALIZE_TEAMS';
@@ -19,19 +19,36 @@ export default (teams = [], action) => {
   }
 }
 
-var instance = axios.create({
-  baseURL: 'https://api.fantasydata.net/v3/nba/scores/JSON/teams',
-  headers: {'Ocp-Apim-Subscription-Key': ''}
-});
-
-// Alter defaults after instance has been created
-
+const formatTeam = (response) => {
+  console.log("THIS IS THE RESPONE: ", Object.entries(response[0]))
+  const teams = response;
+    teams => teams.map(team => {
+      return {
+        name: team.Name,
+        city: team.City,
+        key: team.Key,
+        conference: team.Conference,
+        division: team.Division,
+        logo: team.WikipediaLogoUrl,
+      }
+    })
+}
 
 // Dispatcher
 export const loadTeams = () => dispatch => {
-  return instance.get(baseURL)
-    .then(res => res.data.objects)
-    .then(console.log("YOU FOUND THIS MANY TEAMS: ", res))
-    .then(dispatch(init(res)))
-    .catch(err => console.error(`Could not load posts`, err));
+  return fetch('https://api.fantasydata.net/v3/nba/scores/JSON/teams', {
+  method: 'GET',
+  headers: {
+    'Ocp-Apim-Subscription-Key': '${NBA.bucket.api_key}',
+  }
+})
+  .then((response) => {
+    console.log("THE API KEY IS: ", `${NBA.bucket.api_key}`)
+  })
+  .then((response) => response.json())
+  .then((responseJson) => formatTeam(responseJson))
+  .then((formattedTeam) => dispatch(init(formattedTeam)))
+  .catch((error) => {
+    console.log("couldn't load the teams", error)
+  });
 };

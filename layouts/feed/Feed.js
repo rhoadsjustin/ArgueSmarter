@@ -34,32 +34,23 @@ const renderTeam = (team, index) => (
 class Feed extends Component {
   componentDidMount(){
     this.props.loadTeams();
+    console.log("THE TEAMS SHOULD BE HERE: " + this.props.teams)
   }
 
   render(){
-    const endMsg = this.props.teams.length === 0 ? "There aren't any teams yet!" : "That's all the posts for now!"
+    // const endMsg = this.props.teams.length === 0 ? "There aren't any teams yet!" : "That's all the posts for now!"
 
     return (
       <Container>
         <FeedNavbar logout={this.props.logoutUser} refresh={this.props.loadTeams} />
         <Content>
           <List>
-            {
-              !!this.props.posts.length && this.props.posts.map(renderPost)
-            }
+            {/* {
+              !!this.props.teams.length && this.props.teams.map(renderTeam)
+            } */}
           </List>
-          <Text style={styles.end}>{endMsg}</Text>
+          <Text style={styles.end}>Should be teams in teh console</Text>
         </Content>
-        <Button
-          rounded
-          style={styles.button}
-          onPress={() => Actions.newPost()}
-        >
-          <Icon
-            name="create"
-            style={{padding: 5}}
-          />
-        </Button>
       </Container>
     );
   }
