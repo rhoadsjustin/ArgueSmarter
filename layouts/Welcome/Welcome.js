@@ -20,7 +20,7 @@ export default () => (
           ios="ios-mic-off"
           android="md-happy"
         />
-        <Text style={styles.welcome}>Argue Worse</Text>
+        <Text style={styles.welcome}>Argue Smarter</Text>
       </View>
       <View style={styles.buttonContainer}>
         <Button

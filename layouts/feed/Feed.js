@@ -9,17 +9,20 @@ import {
   Icon,
   Text,
 } from 'native-base';
-
+import { bindActionCreators } from 'redux';
 import SinglePost from '../../components/SinglePost';
 import FeedNavbar from '../../components/FeedNavbar';
 import { loadTeams } from '../../redux/reducers/teams';
 import { logoutUser } from '../../redux/reducers/users';
 import styles from './styles';
 
-const mapStateToProps = ({ teams }) => ({ teams });
+function mapStateToProps(state) {
+  return { teams: state.teams}
+}
 
-const mapDispatchToProps = { loadTeams, logoutUser };
-
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ loadTeams }, dispatch)
+}
 const renderTeam = (team, index) => (
   <SinglePost
     uniqueID={team['_id']}
@@ -32,22 +35,67 @@ const renderTeam = (team, index) => (
 )
 
 class Feed extends Component {
-  componentDidMount(){
-    this.props.loadTeams();
-    console.log("THE TEAMS SHOULD BE HERE: " + this.props.teams)
+  constructor(){
+    super()
+    this.state = {
+      teams: [
+        {
+          name: '',
+          city: '',
+          key: '',
+          conference: '',
+          division: '',
+          logo: '',
+        }
+      ]
+    }
   }
+   loadTeams() {
+    return fetch('https://api.fantasydata.net/v3/nba/scores/JSON/teams', {
+    method: 'GET',
+    headers: {
+      'Ocp-Apim-Subscription-Key': '',
+    }
+  })
+    .then((response) => {
+      let data = response._bodyInit;
+      console.log("This is the teams: ", JSON.parse(data))
+      return prettyData = JSON.parse(data)
+    })
+    .then((prettyData) => prettyTeams = prettyData.map(team => {
+      return {
+        name: team.Name,
+        city: team.City,
+        key: team.Key,
+        conference: team.Conference,
+        division: team.Division,
+        logo: team.WikipediaLogoUrl
+      }
+      console.log("team created", team)
+    }))
+    .then((prettyTeams) => this.setState({
+      teams: prettyTeams
+    }))
+    .catch((error) => {
+      console.log("couldn't load the teams", error)
+    });
+  }
+
+  componentDidMount(){
+    this.loadTeams();
+ }
 
   render(){
     // const endMsg = this.props.teams.length === 0 ? "There aren't any teams yet!" : "That's all the posts for now!"
-
+    console.log("THE TEAMS MADE IT: ", this.state.teams)
     return (
       <Container>
-        <FeedNavbar logout={this.props.logoutUser} refresh={this.props.loadTeams} />
+        <FeedNavbar logout={this.props.logoutUser} />
         <Content>
           <List>
-            {/* {
-              !!this.props.teams.length && this.props.teams.map(renderTeam)
-            } */}
+            {
+              !!this.state.teams.length && this.state.teams.map(renderTeam)
+            }
           </List>
           <Text style={styles.end}>Should be teams in teh console</Text>
         </Content>

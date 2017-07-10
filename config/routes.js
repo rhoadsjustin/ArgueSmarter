@@ -5,6 +5,8 @@ import Login from '../layouts/login'
 import Signup from '../layouts/signup'
 import Feed from '../layouts/feed'
 import NewPost from '../layouts/newPost'
+import Navbar from '../components/StaticNavbar'
+
 const scenes = Actions.create(
   <Scene key="root">
     <Scene key="welcome" component={Welcome} title="Welcome" initial={true} />
@@ -16,5 +18,5 @@ const scenes = Actions.create(
 );
 
 export default () => (
-  <Router scenes={scenes} />
+    <Router scenes={scenes} />
 );

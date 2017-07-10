@@ -19,18 +19,18 @@ export default (teams = [], action) => {
   }
 }
 
-const formatTeam = (response) => {
-  console.log("THIS IS THE RESPONE: ", Object.entries(response[0]))
-  const teams = response;
-    teams => teams.map(team => {
+let formatTeam = (response) => {
+  console.log("THIS IS THE RESPONSE: ", response)
+  teams = response => response.map(team => {
       return {
-        name: team.Name,
-        city: team.City,
-        key: team.Key,
-        conference: team.Conference,
-        division: team.Division,
-        logo: team.WikipediaLogoUrl,
+        name: team.data.Name,
+        city: team.data.City,
+        key: team.data.Key,
+        conference: team.data.Conference,
+        division: team.data.Division,
+        logo: team.data.WikipediaLogoUrl,
       }
+      console.log("Team created: ", team)
     })
 }
 
@@ -39,15 +39,26 @@ export const loadTeams = () => dispatch => {
   return fetch('https://api.fantasydata.net/v3/nba/scores/JSON/teams', {
   method: 'GET',
   headers: {
-    'Ocp-Apim-Subscription-Key': '${NBA.bucket.api_key}',
+    'Ocp-Apim-Subscription-Key': '',
   }
 })
   .then((response) => {
-    console.log("THE API KEY IS: ", `${NBA.bucket.api_key}`)
+    let data = response._bodyInit;
+    console.log("This is the teams: ", JSON.parse(data))
+    return prettyData = JSON.parse(data)
   })
-  .then((response) => response.json())
-  .then((responseJson) => formatTeam(responseJson))
-  .then((formattedTeam) => dispatch(init(formattedTeam)))
+  .then((prettyData) => prettyData.map(team => {
+    return teams = {
+      name: team.Name,
+      city: team.City,
+      key: team.Key,
+      conference: team.Conference,
+      division: team.Division,
+      logo: team.WikipediaLogoUrl,
+    }
+    console.log("team created", team)
+  }))
+  .then((teams) => dispatch(init(teams)))
   .catch((error) => {
     console.log("couldn't load the teams", error)
   });
