@@ -13,7 +13,6 @@ import {
   Icon, Picker
 } from 'native-base';
 import axios from 'axios';
-
 import TextField from '../../components/TextField';
 import styles from './styles';
 import { addUser } from '../../redux/reducers/users';
@@ -39,6 +38,17 @@ const validate = form => {
 
 const Item = Picker.Item;
 
+const renderFavTeam = (team) => (
+ <FaveTeam
+   uniqueID={team['_id']}
+   key={team.key}
+   name={team.name}
+   city={team.city}
+   logo={team.WikipediaLogoUrl}
+   division={team.division}
+ />
+)
+
 class Signup extends Component {
   constructor() {
     super();
@@ -50,7 +60,8 @@ class Signup extends Component {
       favTeam: '',
       image: null,
       error: '',
-    };
+      teams: []
+    }
   }
 
   onSubmit(){
@@ -61,6 +72,7 @@ class Signup extends Component {
       this.checkUsername(this.state.username);
     }
   }
+
 
   checkUsername(username){
     axios.get(`https://api.cosmicjs.com/v1/${cosmicConfig.bucket.slug}/object-type/users/search?metafield_key=username&metafield_value=${username}`)
@@ -83,6 +95,44 @@ class Signup extends Component {
       this.setState({ image: result.uri });
     }
   };
+
+  loadTeams() {
+   return fetch('https://api.fantasydata.net/v3/nba/scores/JSON/teams', {
+   method: 'GET',
+   headers: {
+     'Ocp-Apim-Subscription-Key': '',
+   }
+ })
+   .then((response) => {
+     let data = response._bodyInit;
+     console.log("This is the teams: ", JSON.parse(data))
+     return prettyData = JSON.parse(data)
+   })
+   .then((prettyData) => prettyTeams = prettyData.map(team => {
+     return {
+       name: team.Name,
+       city: team.City,
+       key: team.Key,
+       conference: team.Conference,
+       division: team.Division,
+       logo: team.WikipediaLogoUrl,
+       id: team.GlobalTeamID
+     }
+     console.log("team created", team)
+   }))
+   .then((prettyTeams) => this.setState({
+     teams: prettyTeams
+   }))
+   .catch((error) => {
+     console.log("couldn't load the teams", error)
+   });
+ }
+
+
+
+ componentDidMount(){
+   this.loadTeams();
+}
 
   render(){
     return (
@@ -110,22 +160,19 @@ class Signup extends Component {
               value={this.state.password}
               onChangeText={(text) => this.setState({password: text})}
             />
-            {/* <TextField
-              name="Favorite Team"
-              value={this.state.favTeam}
-              onChangeText={(text) => this.setState({favTeam: text})}
-            /> */}
             <Picker
               iosHeader="Select one"
               mode="dropdown"
               selectedValue={this.state.favTeam}
               onValueChange={(value) => this.setState({favTeam: value})}
             >
-              <Item label="Atlanta Hawks" value="ATL" />
-              <Item label="Boston Celtic" value="BOS" />
-              <Item label="Brooklyn Nets" value="BKN" />
-              <Item label="Charlotte Hornets" value="CHA" />
-              <Item label="Chicago Bulls" value="CHI" />
+              { this.state.teams.map((team) => {
+                let teamName = team.city + ' ' + team.name
+                  return (
+                  <Item key={team.id} label={teamName} value={team.key} />
+                  )
+                })
+              }
             </Picker>
           </Form>
           <Text style={styles.addPic}>Add a profile picture</Text>
