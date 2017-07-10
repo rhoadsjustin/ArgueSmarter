@@ -10,7 +10,7 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      isReady: false
+      isReady: false,
     }
   }
   async componentWillMount() {
@@ -24,6 +24,7 @@ export default class App extends React.Component {
 
     this.setState({isReady: true});
   }
+
   render() {
     if(!this.state.isReady) {
       return <AppLoading />;

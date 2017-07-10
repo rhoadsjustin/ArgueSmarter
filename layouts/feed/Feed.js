@@ -4,10 +4,18 @@ import { Actions } from 'react-native-router-flux';
 import {
   Container,
   Content,
+  Header,
+  Tab,
+  Tabs,
   List,
   Button,
   Icon,
   Text,
+  Card,
+  CardItem,
+  Body,
+  Item,
+  Input
 } from 'native-base';
 import { bindActionCreators } from 'redux';
 import SinglePost from '../../components/SinglePost';
@@ -15,6 +23,9 @@ import FeedNavbar from '../../components/FeedNavbar';
 import { loadTeams } from '../../redux/reducers/teams';
 import { logoutUser } from '../../redux/reducers/users';
 import styles from './styles';
+// import Tab1 from '../../components/FavPlayer';
+import cosmicConfig from '../../config/cosmic.js';
+// import TeamPlayers from '../../components/TeamPlayers';
 
 function mapStateToProps(state) {
   return { teams: state.teams}
@@ -23,14 +34,14 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ loadTeams }, dispatch)
 }
-const renderTeam = (team, index) => (
-  <SinglePost
-    uniqueID={team['_id']}
-    key={team.key}
-    name={team.name}
-    city={team.city}
-    teamPicture={team.WikipediaLogoUrl}
-    division={team.division}
+const renderTeamNews = (news, index) => (
+  <Tab1
+    key={news.NewsID}
+    content={news.Content}
+    title={news.title}
+    updated={news.Updated}
+    source={news.Source}
+    url={news.Url}
   />
 )
 
@@ -38,67 +49,97 @@ class Feed extends Component {
   constructor(){
     super()
     this.state = {
-      teams: [
-        {
-          name: '',
-          city: '',
-          key: '',
-          conference: '',
-          division: '',
-          logo: '',
-        }
-      ]
+      news: [],
+      start_pos: 0,
+      showNews: []
     }
   }
-   loadTeams() {
-    return fetch('https://api.fantasydata.net/v3/nba/scores/JSON/teams', {
+   loadNews() {
+    return fetch('https://api.fantasydata.net/v3/nba/stats/JSON/News', {
     method: 'GET',
     headers: {
-      'Ocp-Apim-Subscription-Key': '',
+      'Ocp-Apim-Subscription-Key': cosmicConfig.bucket.api_key,
     }
   })
     .then((response) => {
       let data = response._bodyInit;
-      console.log("This is the teams: ", JSON.parse(data))
+      console.log("This is the news for all teams: ", JSON.parse(data))
       return prettyData = JSON.parse(data)
     })
-    .then((prettyData) => prettyTeams = prettyData.map(team => {
+    .then((prettyData) => prettyNews = prettyData.map(news => {
       return {
-        name: team.Name,
-        city: team.City,
-        key: team.Key,
-        conference: team.Conference,
-        division: team.Division,
-        logo: team.WikipediaLogoUrl
+        key: news.NewsID,
+        title: news.Title,
+        updated: news.Updated,
+        content: news.Content,
+        source: news.Source,
+        url: news.Url
       }
-      console.log("team created", team)
+      console.log("newsStory created: ", news)
     }))
-    .then((prettyTeams) => this.setState({
-      teams: prettyTeams
+    .then((prettyNews) => this.setState({
+      news: prettyNews
+    }))
+    .then(this.setState({
+      showNews: this.state.news.slice(this.state.start_pos, (this.state.start_pos+10))
     }))
     .catch((error) => {
-      console.log("couldn't load the teams", error)
+      console.log("couldn't load the news", error)
     });
   }
 
   componentDidMount(){
-    this.loadTeams();
+    this.loadNews();
  }
 
   render(){
     // const endMsg = this.props.teams.length === 0 ? "There aren't any teams yet!" : "That's all the posts for now!"
-    console.log("THE TEAMS MADE IT: ", this.state.teams)
+    console.log("THE NEWS MADE IT: ", this.state.news.slice(this.state.start_pos, (this.state.start_pos+10)))
+    console.log("API KEY: ", cosmicConfig)
     return (
       <Container>
         <FeedNavbar logout={this.props.logoutUser} />
-        <Content>
-          <List>
-            {
-              !!this.state.teams.length && this.state.teams.map(renderTeam)
-            }
-          </List>
-          <Text style={styles.end}>Should be teams in teh console</Text>
-        </Content>
+        <Container>
+       <Header hasTabs />
+       <Tabs initialPage={1}>
+         <Tab heading="Team News">
+             { this.state.news.slice(this.state.start_pos, (this.state.start_pos+10)).map((newsStory) => {
+                 return (
+                   <Card>
+                     <CardItem header>
+                       <Text>{newsStory.title}</Text>
+                     </CardItem>
+                     <CardItem>
+                       <Body id={newsStory.key}>
+                         <Text>
+                          {newsStory.content}
+                         </Text>
+                       </Body>
+                     </CardItem>
+                     <CardItem footer>
+                       <Text>{newsStory.source} || {newsStory.updated}</Text>
+                     </CardItem>
+                  </Card>
+                 )
+               }) }
+         </Tab>
+         <Tab heading="Team Players">
+          {/* search bar to look for players based on team to pick for matchup of stats  */}
+           <Container>
+             <Header searchBar rounded>
+                 <Item>
+                   <Icon name="ios-search" />
+                   <Input placeholder="Search" />
+                   <Icon name="ios-people" />
+                 </Item>
+                   <Button transparent>
+                     <Text>Search</Text>
+                   </Button>
+             </Header>
+           </Container>
+         </Tab>
+       </Tabs>
+     </Container>
       </Container>
     );
   }

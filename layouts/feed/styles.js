@@ -13,4 +13,5 @@ export default {
     fontSize: 12,
     color: 'grey',
   }
+
 };

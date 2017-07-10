@@ -21,7 +21,7 @@ export default (props) => (
       </Button>
   </Left>
   <Body>
-    <Title>Your feed</Title>
+    <Title>NBA News</Title>
   </Body>
   <Right>
       <Button
