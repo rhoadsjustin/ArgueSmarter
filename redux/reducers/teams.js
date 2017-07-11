@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
-import NBA from '../../config/cosmic';
+import { COSMIC_SLUG, NBA_API_KEY } from 'react-native-dotenv';
 
 // Constants
 const INITIALIZE = 'INITIALIZE_TEAMS';
@@ -39,7 +39,7 @@ export const loadTeams = () => dispatch => {
   return fetch('https://api.fantasydata.net/v3/nba/scores/JSON/teams', {
   method: 'GET',
   headers: {
-    'Ocp-Apim-Subscription-Key': '',
+    'Ocp-Apim-Subscription-Key': 'NBA_API_KEY',
   }
 })
   .then((response) => {

@@ -16,7 +16,7 @@ import axios from 'axios';
 import TextField from '../../components/TextField';
 import styles from './styles';
 import { addUser } from '../../redux/reducers/users';
-import cosmicConfig from '../../config/cosmic';
+import { COSMIC_SLUG, NBA_API_KEY } from 'react-native-dotenv';
 
 const mapDispatchToProps = {addUser};
 
@@ -75,7 +75,7 @@ class Signup extends Component {
 
 
   checkUsername(username){
-    axios.get(`https://api.cosmicjs.com/v1/${cosmicConfig.bucket.slug}/object-type/users/search?metafield_key=username&metafield_value=${username}`)
+    axios.get(`https://api.cosmicjs.com/v1/${COSMIC_SLUG}/object-type/users/search?metafield_key=username&metafield_value=${username}`)
     .then(res => res.data)
     .then(data => {
       if (data.objects) {
@@ -100,7 +100,7 @@ class Signup extends Component {
    return fetch('https://api.fantasydata.net/v3/nba/scores/JSON/teams', {
    method: 'GET',
    headers: {
-     'Ocp-Apim-Subscription-Key': '',
+     'Ocp-Apim-Subscription-Key': NBA_API_KEY,
    }
  })
    .then((response) => {

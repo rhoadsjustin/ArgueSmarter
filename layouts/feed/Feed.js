@@ -26,7 +26,6 @@ import styles from './styles';
 import { NBA_API_KEY } from 'react-native-dotenv'
 
 // import Tab1 from '../../components/FavPlayer';
-import cosmicConfig from '../../config/cosmic.js';
 // import TeamPlayers from '../../components/TeamPlayers';
 // const NBA = ApiClient.init(NBA_API_KEY)
 
@@ -61,7 +60,7 @@ class Feed extends Component {
     return fetch('https://api.fantasydata.net/v3/nba/stats/JSON/News', {
     method: 'GET',
     headers: {
-      'Ocp-Apim-Subscription-Key': '',
+      'Ocp-Apim-Subscription-Key': NBA_API_KEY,
     }
   })
     .then((response) => {
@@ -98,7 +97,7 @@ class Feed extends Component {
   render(){
     // const endMsg = this.props.teams.length === 0 ? "There aren't any teams yet!" : "That's all the posts for now!"
     console.log("THE NEWS MADE IT: ", this.state.news.slice(this.state.start_pos, (this.state.start_pos+10)))
-    console.log("API KEY: ", process.env.NBA_API_KEY)
+    console.log("API KEY: ", NBA_API_KEY)
     return (
       <Container>
         <FeedNavbar logout={this.props.logoutUser} />

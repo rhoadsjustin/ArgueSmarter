@@ -1,9 +1,9 @@
 
 import axios from 'axios';
-import cosmicConfig from '../../config/cosmic';
 import FormData from 'form-data';
 import { Actions } from 'react-native-router-flux';
 import { clear } from './posts';
+import { COSMIC_SLUG, NBA_API_KEY } from 'react-native-dotenv';
 
 // Constants
 const CREATE_USER = 'CREATE_USER';
@@ -48,10 +48,10 @@ export const addUser = user => dispatch => {
         name: 'image'
       });
 
-  return axios.post(`https://api.cosmicjs.com/v1/${cosmicConfig.bucket.slug}/media`, data)
+  return axios.post(`https://api.cosmicjs.com/v1/${COSMIC_SLUG}/media`, data)
   .then(res => res.data.media)
   .then(media => {
-    return axios.post(`https://api.cosmicjs.com/v1/${cosmicConfig.bucket.slug}/add-object`, {
+    return axios.post(`https://api.cosmicjs.com/v1/${COSMIC_SLUG}/add-object`, {
       title: user.firstName + ' ' + user.lastName,
       type_slug: 'users',
       metafields: [
@@ -91,7 +91,7 @@ export const addUser = user => dispatch => {
 }
 
 export const authenticate = user => dispatch => {
-  return axios.get(`https://api.cosmicjs.com/v1/${cosmicConfig.bucket.slug}/object-type/users/search?metafield_key=username&metafield_value=${user.username}`)
+  return axios.get(`https://api.cosmicjs.com/v1/${COSMIC_SLUG}/object-type/users/search?metafield_key=username&metafield_value=${user.username}`)
     .then(res => res.data)
     .then(data => {
       console.log('RESPONSE: ', data);
