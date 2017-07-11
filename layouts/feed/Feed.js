@@ -17,6 +17,7 @@ import {
   Item,
   Input
 } from 'native-base';
+import { WebView, Linking, ScrollView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import SinglePost from '../../components/SinglePost';
 import FeedNavbar from '../../components/FeedNavbar';
@@ -105,25 +106,27 @@ class Feed extends Component {
        <Header hasTabs />
        <Tabs initialPage={1}>
          <Tab heading="Team News">
+           <ScrollView>
              { this.state.news.slice(this.state.start_pos, (this.state.start_pos+10)).map((newsStory) => {
-                 return (
-                   <Card>
-                     <CardItem header>
-                       <Text>{newsStory.title}</Text>
-                     </CardItem>
-                     <CardItem>
-                       <Body id={newsStory.key}>
-                         <Text>
-                          {newsStory.content}
-                         </Text>
-                       </Body>
-                     </CardItem>
-                     <CardItem footer>
-                       <Text>{newsStory.source} || {newsStory.updated}</Text>
-                     </CardItem>
-                  </Card>
-                 )
-               }) }
+               return (
+                 <Card>
+                   <CardItem header>
+                     <Text>{newsStory.title}</Text>
+                   </CardItem>
+                   <CardItem>
+                     <Body id={newsStory.key}>
+                       <Text>
+                         {newsStory.content}
+                       </Text>
+                     </Body>
+                   </CardItem>
+                   <CardItem footer>
+                     <Text>{newsStory.source} || {newsStory.updated}</Text>
+                   </CardItem>
+                 </Card>
+               )
+             }) }
+           </ScrollView>
          </Tab>
          <Tab heading="Team Players">
           {/* search bar to look for players based on team to pick for matchup of stats  */}
