@@ -23,9 +23,12 @@ import FeedNavbar from '../../components/FeedNavbar';
 import { loadTeams } from '../../redux/reducers/teams';
 import { logoutUser } from '../../redux/reducers/users';
 import styles from './styles';
+import { NBA_API_KEY } from 'react-native-dotenv'
+
 // import Tab1 from '../../components/FavPlayer';
 import cosmicConfig from '../../config/cosmic.js';
 // import TeamPlayers from '../../components/TeamPlayers';
+// const NBA = ApiClient.init(NBA_API_KEY)
 
 function mapStateToProps(state) {
   return { teams: state.teams}
@@ -58,7 +61,7 @@ class Feed extends Component {
     return fetch('https://api.fantasydata.net/v3/nba/stats/JSON/News', {
     method: 'GET',
     headers: {
-      'Ocp-Apim-Subscription-Key': cosmicConfig.bucket.api_key,
+      'Ocp-Apim-Subscription-Key': '',
     }
   })
     .then((response) => {
@@ -81,7 +84,7 @@ class Feed extends Component {
       news: prettyNews
     }))
     .then(this.setState({
-      showNews: this.state.news.slice(this.state.start_pos, (this.state.start_pos+10))
+      showNews: this.state.news.slice(this.state.start_pos, (this.state.start_pos+5))
     }))
     .catch((error) => {
       console.log("couldn't load the news", error)
@@ -95,7 +98,7 @@ class Feed extends Component {
   render(){
     // const endMsg = this.props.teams.length === 0 ? "There aren't any teams yet!" : "That's all the posts for now!"
     console.log("THE NEWS MADE IT: ", this.state.news.slice(this.state.start_pos, (this.state.start_pos+10)))
-    console.log("API KEY: ", cosmicConfig)
+    console.log("API KEY: ", process.env.NBA_API_KEY)
     return (
       <Container>
         <FeedNavbar logout={this.props.logoutUser} />

@@ -3,27 +3,37 @@ export default {
     flex: 1,
     marginTop: 128,
   },
+  image: {
+    width: 400,
+    height: 800,
+  },
   iconBox: {
     flex: 1,
     alignItems: 'center',
+    top: 0
   },
   icon: {
-    fontSize: 96,
+    width: 150,
+    height: 150,
+    marginBottom: 30
   },
   welcome: {
     fontFamily: 'ESPN-BoldItl',
-    fontSize: 48,
+    fontSize: 60,
     color: 'red',
+    marginBottom: 40
   },
   buttonContainer: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'center',
   },
   or: {
     fontFamily: 'ESPN',
   },
   button: {
     margin: 10,
+    flexDirection: 'row',
+    alignContent: 'center'
   }
 };
