@@ -1,6 +1,6 @@
 export default {
   container: {
-    marginTop: 64,
+    marginTop: 0,
   },
   button: {
     position: 'absolute',
