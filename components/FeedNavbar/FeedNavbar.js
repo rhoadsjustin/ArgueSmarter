@@ -8,6 +8,7 @@ import {
   Left,
   Right,
   Body } from 'native-base';
+import { Actions } from 'react-native-router-flux';
 
 
 export default (props) => (
@@ -17,20 +18,20 @@ export default (props) => (
         transparent
         onPress={() => props.logout()}
       >
-          <Text>Log out</Text>
+          <Text>Logout</Text>
       </Button>
   </Left>
-  <Body>
-    <Title>NBA News</Title>
-  </Body>
+  <Button
+    transparent
+    onPress={() => Actions.feed()}>
+      <Text>News</Text>
+    </Button>
   <Right>
-      <Button
-        transparent
-        onPress={() => props.feed()}
-      >
-        <Text>News</Text>
-        <Icon name="refresh" />
-      </Button>
+    <Button
+      transparent
+      onPress={() => Actions.argue()}>
+      <Text>Argue</Text>
+    </Button>
     </Right>
   </Header>
 )

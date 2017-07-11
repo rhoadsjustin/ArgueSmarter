@@ -1,6 +1,6 @@
 export default {
   container: {
-    marginTop: 75,
+    marginTop: 20,
   },
   input: {
     margin: 15,

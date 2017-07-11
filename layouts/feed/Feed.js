@@ -71,7 +71,6 @@ class Feed extends Component {
   })
     .then((response) => {
       let data = response._bodyInit;
-      console.log("This is the news for all teams: ", JSON.parse(data))
       return prettyData = JSON.parse(data)
     })
     .then((prettyData) => prettyNews = prettyData.map(news => {
@@ -83,7 +82,6 @@ class Feed extends Component {
         source: news.Source,
         url: news.Url
       }
-      console.log("newsStory created: ", news)
     }))
     .then((prettyNews) => this.setState({
       news: prettyNews
@@ -106,7 +104,6 @@ class Feed extends Component {
  })
  .then((response) => {
    let data = response._bodyInit
-   console.log("THIS IS THE PLAYERS: ", JSON.parse(data))
    return cleanPlayers = JSON.parse(data)
  })
  .then((cleanPlayers) => playersList = cleanPlayers.map(player => {
@@ -119,7 +116,6 @@ class Feed extends Component {
      college: player.College,
      photo: player.PhotoUrl
    }
-   console.log("player created: ", player)
  }))
  .then((playersList) => this.setState({
    players: playersList
@@ -137,15 +133,6 @@ onHandleSubmit() {
     this.loadNews();
 }
 
-// componentWillUpdate() {
-//   if(this.state.players.length > 1) {
-//
-//   let playerView =
-//   } else {
-//     let playerView =  <Text>Search by abbreviations: 'LAL for Lakers, BKN for Nets, etc'</Text>
-//
-//   }
-// }
   render(){
     console.log("THE NEWS MADE IT: ", this.state.news.slice(this.state.start_pos, (this.state.start_pos+10)))
     console.log("API KEY: ", NBA_API_KEY)
@@ -180,7 +167,7 @@ onHandleSubmit() {
            </ScrollView>
          </Tab>
          <Tab heading="Team Players">
-          {/* search bar to look for players based on team to pick for matchup of stats  */}
+          {/* search bar to look for players based on team */}
                 <Container>
                   <Header searchBar rounded>
                     <Item>
