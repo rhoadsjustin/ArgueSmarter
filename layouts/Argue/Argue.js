@@ -10,7 +10,11 @@ import {
   Thumbnail,
   Body,
   Left,
-  Right
+  Right,
+  Header,
+  Icon,
+  Input,
+  Item
 } from 'native-base';
 import { View, ScrollView } from 'react-native';
 import TextField from '../../components/TextField';
@@ -30,19 +34,30 @@ class Argue extends Component {
     this.state = {
       player1: '',
       player2: '',
-      players: []
+      players: [],
+      searchPlayers: '',
+      filteredPlayers: []
     }
   }
 
-  onSubmit() {
-    if (this.state.player1 && this.state.player2){
-      this.props.createArgument({
-        user: this.props.user,
-        content: this.state.content,
+  searchByName() {
+    console.log("THIS IS THE SEARCH: ", this.state.searchPlayers)
+    console.log("IS THIS NULL: ", (this.state.searchPlayers != null))
+    if(this.state.searchPlayers != null) {
+      let playersFiltered = this.state.players.filter((player) => {
+        let name = player.firstName + ' ' + player.lastName
+        let found = name.includes(this.state.searchPlayers)
+        return found
+      })
+      this.setState({
+        filteredPlayers: playersFiltered
       })
     } else {
-      this.setState({error: 'You have to write something!'});
+      this.setState({
+        filteredPlayers: this.state.players
+      })
     }
+    console.log(this.state.filteredPlayers);
   }
 
   loadPlayers() {
@@ -54,12 +69,11 @@ class Argue extends Component {
    })
    .then((response) => {
      let data = response._bodyInit
-     console.log("THIS IS THE PLAYERS: ", JSON.parse(data))
      return cleanPlayers = JSON.parse(data)
    })
    .then((cleanPlayers) => playersList = cleanPlayers.map(player => {
      return {
-       id: player.GlobalTeamID,
+       id: player.PlayerID,
        firstName: player.FirstName,
        lastName: player.LastName,
        position: player.Position,
@@ -70,10 +84,10 @@ class Argue extends Component {
        team: player.Team,
        jersey: player.Jersey
      }
-     console.log("player created: ", player)
    }))
    .then((playersList) => this.setState({
-     players: playersList
+     players: playersList,
+     filteredPlayers: playersList
    }))
    .catch((error) => {
      console.log("couldn't load the players for that team", error)
@@ -81,17 +95,31 @@ class Argue extends Component {
    }
 
   componentDidMount(){
-    this.loadPlayers();
+    this.loadPlayers()
   }
 
   render(){
+
     return (
       <Container style={styles.container}>
         <FeedNavbar />
         <Content>
-          <Text style={styles.formMsg}>{this.state.error}</Text>
-          <ScrollView>
-          { this.state.players.map((player) => {
+          {/* searchbar for finding the players to argue about  */}
+          <Header searchBar rounded>
+            <Item>
+              <Icon name="ios-search" />
+              <Input placeholder="Search by Player Name"
+                onChangeText={(query) => {this.setState({searchPlayers: query})}}
+              />
+                <Icon name="ios-person" />
+              </Item>
+              <Button transparent
+                onPress={() => this.searchByName()}>
+                <Icon name="ios-navigate" />
+              </Button>
+            </Header>
+        <ScrollView>
+          { this.state.filteredPlayers.map((player) => {
             return (
               <ListItem avatar key={player.id}>
                 <Left>
