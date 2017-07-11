@@ -26,8 +26,9 @@ export default (props) => (
   <Right>
       <Button
         transparent
-        onPress={() => props.refresh()}
+        onPress={() => props.feed()}
       >
+        <Text>News</Text>
         <Icon name="refresh" />
       </Button>
     </Right>

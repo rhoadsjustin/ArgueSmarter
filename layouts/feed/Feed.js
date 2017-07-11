@@ -155,7 +155,7 @@ onHandleSubmit() {
     return (
       <Container>
         <FeedNavbar logout={this.props.logoutUser} />
-       <Tabs initialPage={1}>
+       <Tabs initialPage={0}>
          <Tab heading="Team News">
            <ScrollView>
              { this.state.news.slice(this.state.start_pos, (this.state.start_pos+10)).map((newsStory) => {
@@ -202,7 +202,7 @@ onHandleSubmit() {
                       return (
                         <ListItem
                           thumbnail={player.photo}>
-                          <Thumbnail square size={80} source='{player.photo}' />
+                          <Thumbnail square size={80} source={{ uri: player.photo }} />
                           <Body>
                             <Text>{player.firstName} {player.lastName}</Text>
                             <Text note>Position: {player.position} || College: {player.college}</Text>
