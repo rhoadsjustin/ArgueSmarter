@@ -6,6 +6,7 @@ import Signup from '../layouts/signup'
 import Feed from '../layouts/feed'
 import Argue from '../layouts/Argue'
 import Navbar from '../components/StaticNavbar'
+import ArguePlayers from '../layouts/ArguePlayers'
 
 const scenes = Actions.create(
   <Scene key="root">
@@ -14,6 +15,7 @@ const scenes = Actions.create(
     <Scene key="signup" component={Signup} title="Create New Account" type={ActionConst.REPLACE} />
     <Scene key="feed" component={Feed} title="Your Feed" type={ActionConst.REPLACE} hideNavBar />
     <Scene key="argue" component={Argue} type={ActionConst.REPLACE} hideNavBar />
+    <Scene key="arguePlayers" component={ArguePlayers} type={ActionConst.REPLACE} hideNavBar />
   </Scene>
 );
 

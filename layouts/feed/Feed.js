@@ -108,7 +108,7 @@ class Feed extends Component {
  })
  .then((cleanPlayers) => playersList = cleanPlayers.map(player => {
    return {
-     id: player.GlobalTeamID,
+     key: player.GlobalTeamID,
      firstName: player.FirstName,
      lastName: player.LastName,
      position: player.Position,
@@ -188,6 +188,7 @@ onHandleSubmit() {
                   { this.state.players.map((player) => {
                       return (
                         <ListItem
+                          key={player.key}
                           thumbnail={player.photo}>
                           <Thumbnail square size={80} source={{ uri: player.photo }} />
                           <Body>

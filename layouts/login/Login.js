@@ -68,7 +68,7 @@ class Login extends Component {
           <Text style={styles.formMsg}>{this.state.error}</Text>
           <Icon
             style={styles.icon}
-            ios="ios-happy-outline"
+            ios="ios-basketball"
             android="md-happy"
           />
           <View style={styles.loginBox}>

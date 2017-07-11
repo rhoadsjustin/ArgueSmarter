@@ -14,17 +14,20 @@ import {
   Header,
   Icon,
   Input,
-  Item
+  Item,
+  Spinner
 } from 'native-base';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, ActivityIndicator, Button as ButtonR } from 'react-native';
 import TextField from '../../components/TextField';
 import styles from './styles';
 import FeedNavbar from '../../components/FeedNavbar'
 import { NBA_API_KEY } from 'react-native-dotenv'
+import { Actions } from 'react-native-router-flux'
 
 
 const mapStateToProps = state => ({
   user: state.user,
+  arguePlayers: state.arguePlayers
 })
 
 
@@ -32,11 +35,12 @@ class Argue extends Component {
   constructor(){
     super();
     this.state = {
-      player1: '',
-      player2: '',
+      arguePlayers: [],
       players: [],
       searchPlayers: '',
-      filteredPlayers: []
+      filteredPlayers: [],
+      isLoading: true,
+      canArgue: true
     }
   }
 
@@ -87,19 +91,34 @@ class Argue extends Component {
    }))
    .then((playersList) => this.setState({
      players: playersList,
-     filteredPlayers: playersList
+     filteredPlayers: playersList,
+     isLoading: false
    }))
    .catch((error) => {
      console.log("couldn't load the players for that team", error)
    })
    }
 
+  playersToArgueAbout(player) {
+    if(this.state.arguePlayers.length < 2) {
+      this.state.arguePlayers.push(player.id)
+      return
+    } else {
+      this.setState({
+        canArgue: false
+      })
+      this.state.arguePlayers.shift()
+      this.state.arguePlayers.push(player.id)
+      return
+    }
+    console.log("PLAYERS TO ARGUE BOUT: ", this.state.arguePlayers)
+    console.log("THIS STATE SHOULD CHANGE: ", this.state.canArgue)
+  }
   componentDidMount(){
     this.loadPlayers()
   }
 
   render(){
-
     return (
       <Container style={styles.container}>
         <FeedNavbar />
@@ -118,7 +137,19 @@ class Argue extends Component {
                 <Icon name="ios-navigate" />
               </Button>
             </Header>
-        <ScrollView>
+            <View>
+              <Button
+                rounded
+                iconRight
+                disabled={this.state.canArgue}
+                style={styles.button}
+                onPress={ (arguePlayers) => Actions.arguePlayers({arguePlayers: this.state.arguePlayers})}>
+                <Text>Go Argue</Text>
+                <Icon name="ios-exit-outline" />
+              </Button>
+            </View>
+        <ScrollView style={styles.scroll}>
+          <ActivityIndicator animating={this.state.isLoading} />
           { this.state.filteredPlayers.map((player) => {
             return (
               <ListItem avatar key={player.id}>
@@ -134,11 +165,12 @@ class Argue extends Component {
                 </Body>
                 <Right>
                   <Text note>Team: {player.team}</Text>
+                  <Text note>Argue: <Icon name="ios-man" onPress={() => this.playersToArgueAbout(player)}/></Text>
                 </Right>
               </ListItem>
             )
           })}
-        </ScrollView>
+          </ScrollView>
         </Content>
       </Container>
     );
