@@ -61,8 +61,6 @@ class Argue extends Component {
   }
 
   searchByName() {
-    console.log("THIS IS THE SEARCH: ", this.state.searchPlayers)
-    console.log("IS THIS NULL: ", (this.state.searchPlayers != null))
     if(this.state.searchPlayers != null) {
       let playersFiltered = this.state.players.filter((player) => {
         let name = player.firstName + ' ' + player.lastName
@@ -77,7 +75,6 @@ class Argue extends Component {
         filteredPlayers: this.state.players
       })
     }
-    console.log(this.state.filteredPlayers);
   }
 
   loadPlayers() {
@@ -126,7 +123,7 @@ class Argue extends Component {
         },
         p1picked: true,
         playerOneSelected: player.id
-      }, () => { console.log("THIS IS THE FIRST PLAYER PICKED: ", this.state.p1) })
+      })
     } else if(!this.state.p2picked) {
       this.setState({
         p2: {
@@ -137,7 +134,7 @@ class Argue extends Component {
         p2picked: true,
         playerTwoSelected: player.id,
         canArgue: false
-      }, () => {console.log("THIS IS THE SECOND PLAYER PICKED: ", this.state.p2)})
+      })
     } else if(this.state.p1picked && this.state.p2picked){
         if(player.id === this.state.p1.id) {
           this.setState({ p1picked: false })
@@ -213,9 +210,9 @@ class Argue extends Component {
         </ScrollView>
         <View style={styles.argueContainer}>
           <Text style={styles.argue} title>Arguing:</Text>
-          <Text>{this.state.p1.name}</Text>
+          <Text style={styles.playerText}>{this.state.p1.name}</Text>
           <Text style={styles.vs} title>VS:</Text>
-          <Text>{this.state.p2.name}</Text>
+          <Text style={styles.playerText}>{this.state.p2.name}</Text>
         </View>
         </Content>
       </Container>

@@ -21,5 +21,8 @@ export default {
   image: {
     height: 128,
     width: 128
+  },
+  voteContainer: {
+    flexDirection: 'row'
   }
 };

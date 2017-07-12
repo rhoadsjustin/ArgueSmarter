@@ -37,11 +37,8 @@ const mapStateToProps = state => ({
 class ArguePlayers extends Component {
   constructor(props){
     super(props);
-    // let player = this.props.navigationState["arguePlayers"]
-    // let playerPhoto = this.props.navigationState["arguePlayersPhotos"]
     let player1Selected = this.props.navigationState["p1"]
     let player2Selected = this.props.navigationState["p2"]
-    console.log(this.props.navigationState)
     this.state = {
       player1: player1Selected,
       player2: player2Selected,
@@ -63,20 +60,20 @@ class ArguePlayers extends Component {
       headers: { 'content-type': 'application/json'},
       body: JSON.stringify({
         write_key: COSMIC_WRITE_KEY,
-        title: 'matchup1',
+        title: this.state.player1.id + this.state.player2.id,
         singular: 'Matchup',
         type_slug: 'matchups',
         metafields: [
           {
             key: 'playerOne',
             type: 'text',
-            value: this.state.playerOne,
+            value: this.state.player1.name,
             required: true
           },
           {
             key: 'playerTwo',
             type: 'text',
-            value: this.state.playerTwo,
+            value: this.state.player2.name,
             required: true
           }
               ]
@@ -149,12 +146,12 @@ class ArguePlayers extends Component {
                   <Text>BLK: {this.state.player1Stats.BlocksPercentage}</Text>
                   <Text>+/-: {this.state.player1Stats.PlusMinus}</Text>
             </Body>
-            <Right>
-              <Thumbnail large square style={styles.image} source={{uri: this.state.player1.photo}} />
-            </Right>
+              <Right>
+                <Thumbnail large square style={styles.image} source={{uri: this.state.player1.photo}} />
+              </Right>
             </CardItem>
             <CardItem footer>
-              <Text>Who's Better?</Text>
+              <Button small rounded primary><Text>Vote for {this.state.player1.name}</Text></Button>
             </CardItem>
          </Card>
         </Content>
@@ -175,12 +172,12 @@ class ArguePlayers extends Component {
                   <Text>BLK: {this.state.player2Stats.BlocksPercentage}</Text>
                   <Text>+/-: {this.state.player2Stats.PlusMinus}</Text>
               </Body>
-              <Right>
-                <Thumbnail large square style={styles.image} source={{uri: this.state.player2.photo}} />
-              </Right>
+                <Right>
+                  <Thumbnail large square style={styles.image} source={{uri: this.state.player2.photo}} />
+                </Right>
             </CardItem>
             <CardItem footer>
-              <Text>Who's Better?</Text>
+              <Button small rounded primary><Text>Vote for {this.state.player2.name}</Text></Button>
             </CardItem>
          </Card>
         </Content>

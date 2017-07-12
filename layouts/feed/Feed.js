@@ -23,9 +23,7 @@ import {
 } from 'native-base';
 import { WebView, Linking, ScrollView } from 'react-native';
 import { bindActionCreators } from 'redux';
-import SinglePost from '../../components/SinglePost';
 import FeedNavbar from '../../components/FeedNavbar';
-import { loadTeams } from '../../redux/reducers/teams';
 import { logoutUser } from '../../redux/reducers/users';
 import styles from './styles';
 import { NBA_API_KEY } from 'react-native-dotenv'
@@ -36,7 +34,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ loadTeams }, dispatch)
+  return bindActionCreators({ logoutUser }, dispatch)
 }
 const renderTeamNews = (news, index) => (
   <Tab1
@@ -124,7 +122,6 @@ class Feed extends Component {
  }
 
 onHandleSubmit() {
-  console.log("CLICKED THIS BUTTON");
   this.loadPlayersByTeam();
 }
   componentDidMount(){
@@ -140,7 +137,7 @@ onHandleSubmit() {
            <ScrollView>
              { this.state.news.slice(this.state.start_pos, (this.state.start_pos+10)).map((newsStory) => {
                return (
-                 <Card>
+                 <Card key={newsStory.key}>
                    <CardItem header>
                      <Text>{newsStory.title}</Text>
                    </CardItem>
@@ -148,7 +145,7 @@ onHandleSubmit() {
                      <Text note>Date Posted: {newsStory.updated}</Text>
                    </CardItem>
                    <CardItem>
-                     <Body id={newsStory.key}>
+                     <Body>
                        <Text>
                          {newsStory.content}
                        </Text>

@@ -105,7 +105,6 @@ class Signup extends Component {
  })
    .then((response) => {
      let data = response._bodyInit;
-     console.log("This is the teams: ", JSON.parse(data))
      return prettyData = JSON.parse(data)
    })
    .then((prettyData) => prettyTeams = prettyData.map(team => {
@@ -118,7 +117,6 @@ class Signup extends Component {
        logo: team.WikipediaLogoUrl,
        id: team.GlobalTeamID
      }
-     console.log("team created", team)
    }))
    .then((prettyTeams) => this.setState({
      teams: prettyTeams

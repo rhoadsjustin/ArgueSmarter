@@ -2,7 +2,6 @@
 import axios from 'axios';
 import FormData from 'form-data';
 import { Actions } from 'react-native-router-flux';
-import { clear } from './posts';
 import { COSMIC_SLUG, NBA_API_KEY } from 'react-native-dotenv';
 
 // Constants

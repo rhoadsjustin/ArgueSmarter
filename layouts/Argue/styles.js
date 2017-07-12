@@ -37,5 +37,9 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     alignContent: 'center'
+  },
+  playerText: {
+    alignSelf: 'center',
+    margin: 10
   }
 };
