@@ -181,7 +181,6 @@ class Argue extends Component {
                 <Text>Go Argue</Text>
                 <Icon name="ios-exit-outline" />
               </Button>
-              <Text style={styles.argue} title>Arguing: <Text>{this.state.p1.name}</Text> vs. <Text>{this.state.p2.name}</Text></Text>
             </View>
 
         <ScrollView style={styles.scroll}>
@@ -206,12 +205,18 @@ class Argue extends Component {
                 </Body>
                 <Right>
                   <Text note>Team: {player.team}</Text>
-                  <Text note>Argue: <Icon name="ios-man" /></Text>
+                  <Text>Click to Argue</Text>
                 </Right>
               </ListItem>
             )
           })}
-          </ScrollView>
+        </ScrollView>
+        <View style={styles.argueContainer}>
+          <Text style={styles.argue} title>Arguing:</Text>
+          <Text>{this.state.p1.name}</Text>
+          <Text style={styles.vs} title>VS:</Text>
+          <Text>{this.state.p2.name}</Text>
+        </View>
         </Content>
       </Container>
     );

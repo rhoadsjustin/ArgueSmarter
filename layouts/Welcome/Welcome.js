@@ -44,6 +44,7 @@ export default () => (
           <Text>Sign Up</Text>
         </Button>
       </View>
+      <Text note style={styles.or}>App Created By Justin Rhoads</Text> 
     </Content>
   </Container>
   </Image>

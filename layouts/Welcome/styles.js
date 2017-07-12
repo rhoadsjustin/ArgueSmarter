@@ -4,7 +4,7 @@ export default {
     marginTop: 128,
   },
   image: {
-    width: 400,
+    width: 425,
     height: 800,
   },
   iconBox: {
@@ -32,6 +32,9 @@ export default {
   },
   or: {
     fontFamily: 'ESPN',
+    alignSelf: 'center',
+    color: 'black',
+    marginTop: 50
   },
   button: {
     margin: 10,

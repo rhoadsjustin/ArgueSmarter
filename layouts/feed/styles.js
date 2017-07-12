@@ -12,6 +12,9 @@ export default {
     alignSelf: 'center',
     fontSize: 12,
     color: 'grey',
+  },
+  footer: {
+    flexDirection: 'column',
+    alignContent: 'flex-start'
   }
-
 };

@@ -150,7 +150,7 @@ class ArguePlayers extends Component {
                   <Text>+/-: {this.state.player1Stats.PlusMinus}</Text>
             </Body>
             <Right>
-              <Thumbnail large square source={{uri: this.state.player1.photo}} />
+              <Thumbnail large square style={styles.image} source={{uri: this.state.player1.photo}} />
             </Right>
             </CardItem>
             <CardItem footer>
@@ -176,7 +176,7 @@ class ArguePlayers extends Component {
                   <Text>+/-: {this.state.player2Stats.PlusMinus}</Text>
               </Body>
               <Right>
-                <Thumbnail large square source={{uri: this.state.player2.photo}} />
+                <Thumbnail large square style={styles.image} source={{uri: this.state.player2.photo}} />
               </Right>
             </CardItem>
             <CardItem footer>

@@ -17,7 +17,9 @@ import {
   Item,
   Input,
   ListItem,
-  Thumbnail
+  Thumbnail,
+  Left,
+  Right
 } from 'native-base';
 import { WebView, Linking, ScrollView } from 'react-native';
 import { bindActionCreators } from 'redux';
@@ -28,9 +30,6 @@ import { logoutUser } from '../../redux/reducers/users';
 import styles from './styles';
 import { NBA_API_KEY } from 'react-native-dotenv'
 
-// import Tab1 from '../../components/FavPlayer';
-// import TeamPlayers from '../../components/TeamPlayers';
-// const NBA = ApiClient.init(NBA_API_KEY)
 
 function mapStateToProps(state) {
   return { teams: state.teams}
@@ -107,7 +106,7 @@ class Feed extends Component {
  })
  .then((cleanPlayers) => playersList = cleanPlayers.map(player => {
    return {
-     key: player.GlobalTeamID,
+     key: player.PlayerID,
      firstName: player.FirstName,
      lastName: player.LastName,
      position: player.Position,
@@ -133,11 +132,6 @@ onHandleSubmit() {
 }
 
   render(){
-    console.log("THE NEWS MADE IT: ", this.state.news.slice(this.state.start_pos, (this.state.start_pos+10)))
-    console.log("API KEY: ", NBA_API_KEY)
-    console.log("Search Query: ", this.state.searchQuery)
-    console.log("THESE ARE THE PLAYERS CREATED: ", this.state.players)
-
     return (
       <Container>
         <FeedNavbar logout={this.props.logoutUser} />
@@ -151,6 +145,9 @@ onHandleSubmit() {
                      <Text>{newsStory.title}</Text>
                    </CardItem>
                    <CardItem>
+                     <Text note>Date Posted: {newsStory.updated}</Text>
+                   </CardItem>
+                   <CardItem>
                      <Body id={newsStory.key}>
                        <Text>
                          {newsStory.content}
@@ -158,7 +155,7 @@ onHandleSubmit() {
                      </Body>
                    </CardItem>
                    <CardItem footer>
-                     <Text>{newsStory.source} || {newsStory.updated}</Text>
+                       <Text>{newsStory.source}</Text>
                    </CardItem>
                  </Card>
                )

@@ -17,5 +17,9 @@ export default {
   scroll: {
     zIndex: 1,
     height: 400,
+  },
+  image: {
+    height: 128,
+    width: 128
   }
 };

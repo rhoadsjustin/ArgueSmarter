@@ -30,9 +30,8 @@ export default {
     fontSize: 10,
   },
   teamPicker: {
-    backgroundColor: 'blue',
-    width: 50,
+    backgroundColor: 'grey',
     alignSelf: 'center',
-    borderRadius: 40
+    borderRadius: 40,
   }
 };

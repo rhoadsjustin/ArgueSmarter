@@ -22,6 +22,20 @@ export default {
     backgroundColor: '#FF0000',
   },
   argue: {
-      fontFamily: 'ESPN-Bold'
+      fontFamily: 'ESPN-Bold',
+      justifyContent: 'center',
+      alignContent: 'center',
+      alignSelf: 'center',
+      fontSize: 30
+  },
+  vs: {
+    alignSelf: 'center',
+    fontSize: 15,
+    fontFamily: 'ESPN-Bold'
+  },
+  argueContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignContent: 'center'
   }
 };
