@@ -27,8 +27,8 @@ import { Actions } from 'react-native-router-flux'
 
 const mapStateToProps = state => ({
   user: state.user,
-  arguePlayers: state.arguePlayers,
-  arguePlayersPhotos: state.arguePlayersPhotos
+  p1: state.p1,
+  p2: state.p2
 })
 
 
@@ -36,7 +36,6 @@ class Argue extends Component {
   constructor(){
     super();
     this.state = {
-      arguePlayers: [],
       players: [],
       searchPlayers: '',
       filteredPlayers: [],
@@ -44,7 +43,16 @@ class Argue extends Component {
       canArgue: true,
       pressed: false,
       playerSelected: '',
-      arguePlayersPhotos: []
+      p1picked: false,
+      p2picked: false,
+      p1: {
+        id: '',
+        photo: ''
+      },
+      p2: {
+        id: '',
+        photo: ''
+      }
     }
   }
 
@@ -111,23 +119,50 @@ class Argue extends Component {
   }
 
   playersToArgueAbout(player) {
-    if(this.state.arguePlayers.length < 2) {
-      this.state.arguePlayers.push(player.id)
-      this.state.arguePlayersPhotos.push(player.photo)
-      return
-    } else {
+    console.log(player)
+    // if(this.state.arguePlayers.length < 2) {
+    //   this.state.arguePlayers.push(player.id)
+    //   this.state.arguePlayersPhotos.push(player.photo)
+    //   return
+    // } else {
+    //   this.setState({
+    //     canArgue: false
+    //   })
+    //   this.state.arguePlayers.push(player.id)
+    //   this.state.arguePlayersPhotos.push(player.photo)
+    //   this.state.arguePlayers.shift()
+    //   this.state.arguePlayersPhotos.shift()
+    //   return
+    // }
+    // console.log("PLAYERS TO ARGUE BOUT: ", this.state.arguePlayers)
+    // console.log("THIS STATE SHOULD CHANGE: ", this.state.canArgue)
+    if(!this.state.p1picked) {
       this.setState({
+        p1: {
+          id: player.id,
+          photo: player.photo
+        },
+        p1picked: true
+      }, () => { console.log("THIS IS THE FIRST PLAYER PICKED: ", this.state.p1) })
+    } else if(!this.state.p2picked) {
+      this.setState({
+        p2: {
+          id: player.id,
+          photo: player.photo
+        },
+        p2picked: true,
         canArgue: false
-      })
-      this.state.arguePlayers.push(player.id)
-      this.state.arguePlayersPhotos.push(player.photo)
-      this.state.arguePlayers.shift()
-      this.state.arguePlayersPhotos.shift()
-      return
+      }, () => {console.log("THIS IS THE SECOND PLAYER PICKED: ", this.state.p2)})
+    } else if(this.state.p1picked && this.state.p2picked){
+        if(player.id === this.state.p1.id) {
+          this.setState({ p1picked: false })
+        } else if(player.id === this.state.p2.id) {
+          this.setState({ p2picked: false })
+        }
     }
-    console.log("PLAYERS TO ARGUE BOUT: ", this.state.arguePlayers)
-    console.log("THIS STATE SHOULD CHANGE: ", this.state.canArgue)
   }
+
+
   componentDidMount(){
     this.loadPlayers()
   }
@@ -157,7 +192,7 @@ class Argue extends Component {
                 iconRight
                 disabled={this.state.canArgue}
                 style={styles.button}
-                onPress={ (arguePlayers) => Actions.arguePlayers({arguePlayers: this.state.arguePlayers})}>
+                onPress={ (arguePlayers) => Actions.arguePlayers({p1: this.state.p1, p2: this.state.p2})}>
                 <Text>Go Argue</Text>
                 <Icon name="ios-exit-outline" />
               </Button>

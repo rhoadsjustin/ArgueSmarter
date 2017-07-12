@@ -24,30 +24,32 @@ import TextField from '../../components/TextField';
 import styles from './styles';
 import FeedNavbar from '../../components/FeedNavbar'
 import { NBA_API_KEY, COSMIC_SLUG, COSMIC_WRITE_KEY } from 'react-native-dotenv'
+import { Action } from 'react-native-router-flux'
 
 
 const mapStateToProps = state => ({
   user: state.user,
-  arguePlayers: state.arguePlayers
+  p1: state.p1,
+  p2: state.p2
 })
 
 
 class ArguePlayers extends Component {
   constructor(props){
     super(props);
-    let player = this.props.navigationState["arguePlayers"]
+    // let player = this.props.navigationState["arguePlayers"]
     // let playerPhoto = this.props.navigationState["arguePlayersPhotos"]
+    let player1Selected = this.props.navigationState["p1"]
+    let player2Selected = this.props.navigationState["p2"]
     console.log(this.props.navigationState)
     this.state = {
-      player1: player[0],
-      player2: player[1],
+      player1: player1Selected,
+      player2: player2Selected,
       player1Stats: {},
       player2Stats: {},
       year: '',
       isLoading: true,
       canArgue: true,
-      // player1Photo: playerPhoto[0],
-      // player2Photo: playerPhoto[1]
     }
   }
   loadPlayersStats() {
@@ -84,7 +86,7 @@ class ArguePlayers extends Component {
       .catch(err => console.error(`Creating matchup unsuccessful`, err))
     }
   loadPlayerOne() {
-   return fetch(`https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByPlayer/2017/${this.state.player1}`, {
+   return fetch(`https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByPlayer/2017/${this.state.player1.id}`, {
      method: 'GET',
      headers: {
        'Ocp-Apim-Subscription-Key': NBA_API_KEY,
@@ -103,7 +105,7 @@ class ArguePlayers extends Component {
   }
 
   loadPlayerTwo() {
-   return fetch(`https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByPlayer/2017/${this.state.player2}`, {
+   return fetch(`https://api.fantasydata.net/v3/nba/stats/JSON/PlayerSeasonStatsByPlayer/2017/${this.state.player2.id}`, {
      method: 'GET',
      headers: {
        'Ocp-Apim-Subscription-Key': NBA_API_KEY,
@@ -139,17 +141,17 @@ class ArguePlayers extends Component {
               <Body>
                   <Text>Team: {this.state.player1Stats.Team}</Text>
                   <Text>Position: {this.state.player1Stats.Position}</Text>
-                  <Text>FG%: {this.state.player1Stats.FieldGoalsPercentage}%</Text>
-                  <Text>3PTFG%: {this.state.player1Stats.ThreePointersPercentage}%</Text>
-                  <Text>FT%: {this.state.player1Stats.FreeThrowsPercentage}%</Text>
+                  <Text>FG: {this.state.player1Stats.FieldGoalsPercentage}%</Text>
+                  <Text>3PTFG: {this.state.player1Stats.ThreePointersPercentage}%</Text>
+                  <Text>FT: {this.state.player1Stats.FreeThrowsPercentage}%</Text>
                   <Text>ORB: {this.state.player1Stats.OffensiveReboundsPercentage}</Text>
                   <Text>PER: {this.state.player1Stats.PlayerEfficiencyRating}</Text>
                   <Text>BLK: {this.state.player1Stats.BlocksPercentage}</Text>
                   <Text>+/-: {this.state.player1Stats.PlusMinus}</Text>
             </Body>
-            {/* <Right>
-              <Thumbnail large source={{uri: this.state.player1Photo}} />
-            </Right> */}
+            <Right>
+              <Thumbnail large square source={{uri: this.state.player1.photo}} />
+            </Right>
             </CardItem>
             <CardItem footer>
               <Text>Who's Better?</Text>
@@ -165,20 +167,23 @@ class ArguePlayers extends Component {
               <Body>
                   <Text>Team: {this.state.player2Stats.Team}</Text>
                   <Text>Position: {this.state.player2Stats.Position}</Text>
-                  <Text>FG%: {this.state.player2Stats.FieldGoalsPercentage}%</Text>
-                  <Text>3PTFG%: {this.state.player2Stats.ThreePointersPercentage}%</Text>
-                  <Text>FT%: {this.state.player2Stats.FreeThrowsPercentage}%</Text>
+                  <Text>FG: {this.state.player2Stats.FieldGoalsPercentage}%</Text>
+                  <Text>3PTFG: {this.state.player2Stats.ThreePointersPercentage}%</Text>
+                  <Text>FT: {this.state.player2Stats.FreeThrowsPercentage}%</Text>
                   <Text>ORB: {this.state.player2Stats.OffensiveReboundsPercentage}</Text>
                   <Text>PER: {this.state.player2Stats.PlayerEfficiencyRating}</Text>
                   <Text>BLK: {this.state.player2Stats.BlocksPercentage}</Text>
                   <Text>+/-: {this.state.player2Stats.PlusMinus}</Text>
               </Body>
+              <Right>
+                <Thumbnail large square source={{uri: this.state.player2.photo}} />
+              </Right>
             </CardItem>
             <CardItem footer>
               <Text>Who's Better?</Text>
             </CardItem>
          </Card>
-         <Button iconLeft>
+         <Button iconLeft style={styles.button}>
            <Icon name='home' />
          </Button>
         </Content>

@@ -28,5 +28,11 @@ export default {
   },
   loginTxt: {
     fontSize: 10,
+  },
+  teamPicker: {
+    backgroundColor: 'blue',
+    width: 50,
+    alignSelf: 'center',
+    borderRadius: 40
   }
 };

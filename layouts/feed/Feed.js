@@ -95,7 +95,6 @@ class Feed extends Component {
   }
 
   loadPlayersByTeam() {
-   console.log(`https://api.fantasydata.net/v3/nba/stats/JSON/Players/${this.state.searchQuery}`)
    return fetch(`https://api.fantasydata.net/v3/nba/stats/JSON/Players/${this.state.searchQuery}`, {
    method: 'GET',
    headers: {

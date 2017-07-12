@@ -10,7 +10,7 @@ import {
   Text,
   Form,
   Thumbnail,
-  Icon, Picker
+  Icon, Picker, Title
 } from 'native-base';
 import axios from 'axios';
 import TextField from '../../components/TextField';
@@ -160,7 +160,9 @@ class Signup extends Component {
               value={this.state.password}
               onChangeText={(text) => this.setState({password: text})}
             />
+            <Text style={styles.addPic}>Choose your Favorite Team</Text>
             <Picker
+              style={styles.teamPicker}
               iosHeader="Select one"
               mode="dropdown"
               selectedValue={this.state.favTeam}
