@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "18.0.0"
+   "name": "Argue Smarter",
+   "icon": "./assets/iTunesArtwork@3x.png",
+   "version": "1.0.0",
+   "slug": "argue-smarter",
+   "sdkVersion": "18.0.0",
+   "ios": {
+     "bundleIdentifier": "com.rhoadsDev.arguesmarter"
+   },
+   "android": {
+     "package": "com.rhoadsDev.arguesmarter"
+   }
   }
 }
