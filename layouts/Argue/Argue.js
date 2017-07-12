@@ -27,7 +27,8 @@ import { Actions } from 'react-native-router-flux'
 
 const mapStateToProps = state => ({
   user: state.user,
-  arguePlayers: state.arguePlayers
+  arguePlayers: state.arguePlayers,
+  arguePlayersPhotos: state.arguePlayersPhotos
 })
 
 
@@ -40,7 +41,10 @@ class Argue extends Component {
       searchPlayers: '',
       filteredPlayers: [],
       isLoading: true,
-      canArgue: true
+      canArgue: true,
+      pressed: false,
+      playerSelected: '',
+      arguePlayersPhotos: []
     }
   }
 
@@ -99,16 +103,26 @@ class Argue extends Component {
    })
    }
 
+  selectedPlayer(player) {
+    this.setState({
+      selectedPlayer: player.id
+    })
+    console.log("CLICKED!!!!! THE CARD SHOULD CHANGE")
+  }
+
   playersToArgueAbout(player) {
     if(this.state.arguePlayers.length < 2) {
       this.state.arguePlayers.push(player.id)
+      this.state.arguePlayersPhotos.push(player.photo)
       return
     } else {
       this.setState({
         canArgue: false
       })
-      this.state.arguePlayers.shift()
       this.state.arguePlayers.push(player.id)
+      this.state.arguePlayersPhotos.push(player.photo)
+      this.state.arguePlayers.shift()
+      this.state.arguePlayersPhotos.shift()
       return
     }
     console.log("PLAYERS TO ARGUE BOUT: ", this.state.arguePlayers)
@@ -152,7 +166,12 @@ class Argue extends Component {
           <ActivityIndicator animating={this.state.isLoading} />
           { this.state.filteredPlayers.map((player) => {
             return (
-              <ListItem avatar key={player.id}>
+              <ListItem
+                avatar
+                key={player.id}
+                style={player.id === this.state.playerSelected ? styles.playerPressed : styles.player }
+                onPress={() => {this.playersToArgueAbout(player); this.selectedPlayer(player)}}
+                >
                 <Left>
                   <Thumbnail source={{ uri: player.photo }} />
                 </Left>
@@ -165,7 +184,7 @@ class Argue extends Component {
                 </Body>
                 <Right>
                   <Text note>Team: {player.team}</Text>
-                  <Text note>Argue: <Icon name="ios-man" onPress={() => this.playersToArgueAbout(player)}/></Text>
+                  <Text note>Argue: <Icon name="ios-man" /></Text>
                 </Right>
               </ListItem>
             )

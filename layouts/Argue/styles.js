@@ -17,5 +17,8 @@ export default {
   scroll: {
     zIndex: 1,
     height: 400,
+  },
+  playerPressed: {
+    backgroundColor: '#000066',
   }
 };
