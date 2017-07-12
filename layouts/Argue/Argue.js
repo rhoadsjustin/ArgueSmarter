@@ -46,13 +46,17 @@ class Argue extends Component {
       p1picked: false,
       p2picked: false,
       p1: {
+        name: '',
         id: '',
         photo: ''
       },
       p2: {
+        name: '',
         id: '',
         photo: ''
-      }
+      },
+      playerOneSelected: '',
+      playerTwoSelected: ''
     }
   }
 
@@ -111,46 +115,27 @@ class Argue extends Component {
    })
    }
 
-  selectedPlayer(player) {
-    this.setState({
-      selectedPlayer: player.id
-    })
-    console.log("CLICKED!!!!! THE CARD SHOULD CHANGE")
-  }
-
   playersToArgueAbout(player) {
-    console.log(player)
-    // if(this.state.arguePlayers.length < 2) {
-    //   this.state.arguePlayers.push(player.id)
-    //   this.state.arguePlayersPhotos.push(player.photo)
-    //   return
-    // } else {
-    //   this.setState({
-    //     canArgue: false
-    //   })
-    //   this.state.arguePlayers.push(player.id)
-    //   this.state.arguePlayersPhotos.push(player.photo)
-    //   this.state.arguePlayers.shift()
-    //   this.state.arguePlayersPhotos.shift()
-    //   return
-    // }
-    // console.log("PLAYERS TO ARGUE BOUT: ", this.state.arguePlayers)
-    // console.log("THIS STATE SHOULD CHANGE: ", this.state.canArgue)
+    let name = player.firstName + ' ' + player.lastName
     if(!this.state.p1picked) {
       this.setState({
         p1: {
+          name: name,
           id: player.id,
           photo: player.photo
         },
-        p1picked: true
+        p1picked: true,
+        playerOneSelected: player.id
       }, () => { console.log("THIS IS THE FIRST PLAYER PICKED: ", this.state.p1) })
     } else if(!this.state.p2picked) {
       this.setState({
         p2: {
+          name: name,
           id: player.id,
           photo: player.photo
         },
         p2picked: true,
+        playerTwoSelected: player.id,
         canArgue: false
       }, () => {console.log("THIS IS THE SECOND PLAYER PICKED: ", this.state.p2)})
     } else if(this.state.p1picked && this.state.p2picked){
@@ -196,7 +181,9 @@ class Argue extends Component {
                 <Text>Go Argue</Text>
                 <Icon name="ios-exit-outline" />
               </Button>
+              <Text style={styles.argue} title>Arguing: <Text>{this.state.p1.name}</Text> vs. <Text>{this.state.p2.name}</Text></Text>
             </View>
+
         <ScrollView style={styles.scroll}>
           <ActivityIndicator animating={this.state.isLoading} />
           { this.state.filteredPlayers.map((player) => {
@@ -204,8 +191,8 @@ class Argue extends Component {
               <ListItem
                 avatar
                 key={player.id}
-                style={player.id === this.state.playerSelected ? styles.playerPressed : styles.player }
-                onPress={() => {this.playersToArgueAbout(player); this.selectedPlayer(player)}}
+                style={player.id === this.state.playerOneSelected || player.id === this.state.playerTwoSelected ? styles.playerPressed : styles.player }
+                onPress={() => this.playersToArgueAbout(player)}
                 >
                 <Left>
                   <Thumbnail source={{ uri: player.photo }} />

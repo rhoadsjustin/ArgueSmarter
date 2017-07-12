@@ -19,6 +19,9 @@ export default {
     height: 400,
   },
   playerPressed: {
-    backgroundColor: '#000066',
+    backgroundColor: '#FF0000',
+  },
+  argue: {
+      fontFamily: 'ESPN-Bold'
   }
 };

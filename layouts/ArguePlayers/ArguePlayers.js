@@ -183,9 +183,6 @@ class ArguePlayers extends Component {
               <Text>Who's Better?</Text>
             </CardItem>
          </Card>
-         <Button iconLeft style={styles.button}>
-           <Icon name='home' />
-         </Button>
         </Content>
       </Container>
     );

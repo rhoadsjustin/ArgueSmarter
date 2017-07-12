@@ -9,6 +9,7 @@ export default {
   },
   iconBox: {
     flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
     top: 0
   },
@@ -21,7 +22,8 @@ export default {
     fontFamily: 'ESPN-BoldItl',
     fontSize: 60,
     color: 'red',
-    marginBottom: 40
+    alignContent: 'center',
+    marginBottom: 20,
   },
   buttonContainer: {
     flex: 2,

@@ -20,7 +20,6 @@ export default () => (
     <Content>
       <View style={styles.iconBox}>
         <Thumbnail style={styles.icon} large source={logo} />
-
         <Text style={styles.welcome}>Argue</Text>
         <Text style={styles.welcome}>Smarter</Text>
 
