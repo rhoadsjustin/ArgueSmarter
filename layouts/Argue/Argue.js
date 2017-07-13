@@ -23,6 +23,8 @@ import styles from './styles';
 import FeedNavbar from '../../components/FeedNavbar'
 import { NBA_API_KEY } from 'react-native-dotenv'
 import { Actions } from 'react-native-router-flux'
+import { logoutUser } from '../../redux/reducers/users';
+
 
 
 const mapStateToProps = state => ({
@@ -31,6 +33,9 @@ const mapStateToProps = state => ({
   p2: state.p2
 })
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ logoutUser }, dispatch)
+}
 
 class Argue extends Component {
   constructor(){
@@ -77,6 +82,16 @@ class Argue extends Component {
     }
   }
 
+  initialPlayers() {
+    let initialResults = this.state.players.slice(0, 30).map((player) => {
+      return player
+    })
+    console.log(initialResults)
+    this.setState({
+      filteredPlayers: initialResults
+    })
+  }
+
   loadPlayers() {
    return fetch('https://api.fantasydata.net/v3/nba/stats/JSON/Players', {
      method: 'GET',
@@ -104,9 +119,8 @@ class Argue extends Component {
    }))
    .then((playersList) => this.setState({
      players: playersList,
-     filteredPlayers: playersList,
      isLoading: false
-   }))
+   }, () => this.initialPlayers()))
    .catch((error) => {
      console.log("couldn't load the players for that team", error)
    })
@@ -151,8 +165,8 @@ class Argue extends Component {
 
   render(){
     return (
-      <Container style={styles.container}>
-        <FeedNavbar />
+      <Container>
+        <FeedNavbar logout={this.props.logoutUser} />
         <Content>
           {/* searchbar for finding the players to argue about  */}
           <Header searchBar rounded>
@@ -181,7 +195,7 @@ class Argue extends Component {
             </View>
 
         <ScrollView style={styles.scroll}>
-          <ActivityIndicator animating={this.state.isLoading} />
+          <ActivityIndicator animating={this.state.isLoading} size='large'/>
           { this.state.filteredPlayers.map((player) => {
             return (
               <ListItem
