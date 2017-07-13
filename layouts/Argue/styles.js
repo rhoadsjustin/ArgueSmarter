@@ -1,7 +1,4 @@
 export default {
-  container: {
-    marginTop: 20,
-  },
   input: {
     margin: 15,
     flex: 1,

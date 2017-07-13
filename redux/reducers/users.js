@@ -130,6 +130,5 @@ export const authenticate = user => dispatch => {
 
 export const logoutUser = () => dispatch => {
   dispatch(logout());
-  dispatch(clear());
   Actions.welcome();
 }

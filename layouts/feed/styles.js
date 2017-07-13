@@ -3,9 +3,7 @@ export default {
     marginTop: 0,
   },
   button: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
+    alignSelf: 'center'
   },
   end: {
     margin: 10,

@@ -36,16 +36,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ logoutUser }, dispatch)
 }
-const renderTeamNews = (news, index) => (
-  <Tab1
-    key={news.NewsID}
-    content={news.Content}
-    title={news.title}
-    updated={news.Updated}
-    source={news.Source}
-    url={news.Url}
-  />
-)
 
 class Feed extends Component {
   constructor(){
@@ -120,7 +110,12 @@ class Feed extends Component {
    console.log("couldn't load the players for that team", error)
  })
  }
+showMoreNews() {
+  this.setState({
+    start_pos: this.state.start_pos+10
+  })
 
+}
 onHandleSubmit() {
   this.loadPlayersByTeam();
 }
@@ -135,7 +130,7 @@ onHandleSubmit() {
        <Tabs initialPage={0}>
          <Tab heading="Team News">
            <ScrollView>
-             { this.state.news.slice(this.state.start_pos, (this.state.start_pos+10)).map((newsStory) => {
+             { this.state.news.slice(0, (this.state.start_pos+10)).map((newsStory) => {
                return (
                  <Card key={newsStory.key}>
                    <CardItem header>
@@ -157,6 +152,14 @@ onHandleSubmit() {
                  </Card>
                )
              }) }
+             <Button
+               rounded
+               full
+               primary
+               style={styles.button}
+               onPress={() => this.showMoreNews()}>
+               <Text>Load More</Text>
+             </Button>
            </ScrollView>
          </Tab>
          <Tab heading="Team Players">
@@ -165,7 +168,7 @@ onHandleSubmit() {
                   <Header searchBar rounded>
                     <Item>
                       <Icon name="ios-search" />
-                      <Input placeholder="Search by Team"
+                      <Input placeholder="Search by Team Abbreviation"
                         onChangeText={(query) => this.setState({
                           searchQuery: query
                         })}
