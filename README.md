@@ -44,7 +44,7 @@ this will start the simulator that will auto refresh as you make changes.
 
 ### Wireframes
 ###### Homepage
-<img src="https://drive.google.com/open?id=0ByNIqXhcds8iMjRwSmNFUEdXZGM" height="60">
+<img src="https://drive.google.com/file/d/0ByNIqXhcds8iMjRwSmNFUEdXZGM" height="60">
 
 
 ### Unsolved Problems && Future Features 
