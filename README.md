@@ -44,9 +44,13 @@ this will start the simulator that will auto refresh as you make changes.
 
 ### Wireframes
 ###### Homepage
-<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/homePage.png?raw=true" height="60">
+<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/homePage.png?raw=true" height="200">
 ###### Teampage
-<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/teamPage.png?raw=true" height="60">
+<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/teamPage.png?raw=true" height="400">
+###### Loginpage
+<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/arguePage.png?raw=true" height="600">
+###### Playerpage
+<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/favoritePlayerPage.png?raw=true" height="400">
 
 
 ### Unsolved Problems && Future Features 
