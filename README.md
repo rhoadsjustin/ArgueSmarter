@@ -42,18 +42,18 @@ npm run ios
 ```
 this will start the simulator that will auto refresh as you make changes.
 
-### Wireframes
-###### Homepage ######
+## Wireframes
+### Homepage 
 <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/homePage.png?raw=true" height="600">
-###### Teampage ######
+### Teampage 
 <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/teamPage.png?raw=true" height="600">
-###### Arguepage ######
+### Arguepage 
 <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/arguePage.png?raw=true" height="600">
-###### Playerpage ######
+### Playerpage 
 <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/favoritePlayerPage.png?raw=true" height="600">
-###### Signuppage ######
+### Signuppage 
 <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/signUpPage.png?raw=true" height="600">
-###### Loginpage ###### 
+### Loginpage  
 <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/loginPage.png?raw=true" height="600">
 
 
