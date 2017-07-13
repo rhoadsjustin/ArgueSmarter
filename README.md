@@ -44,17 +44,17 @@ this will start the simulator that will auto refresh as you make changes.
 
 ## Wireframes
 ### Homepage 
-<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/homePage.png?raw=true" height="600">
+# <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/homePage.png?raw=true" height="600">
 ### Teampage 
-<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/teamPage.png?raw=true" height="600">
+# <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/teamPage.png?raw=true" height="600">
 ### Arguepage 
-<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/arguePage.png?raw=true" height="600">
+# <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/arguePage.png?raw=true" height="600">
 ### Playerpage 
-<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/favoritePlayerPage.png?raw=true" height="600">
+# <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/favoritePlayerPage.png?raw=true" height="600">
 ### Signuppage 
-<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/signUpPage.png?raw=true" height="600">
+# <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/signUpPage.png?raw=true" height="600">
 ### Loginpage  
-<img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/loginPage.png?raw=true" height="600">
+# <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/loginPage.png?raw=true" height="600">
 
 
 ### Unsolved Problems && Future Features 
