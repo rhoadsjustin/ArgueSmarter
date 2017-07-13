@@ -41,7 +41,9 @@ if you have Xcode installed you can run the simulator on your laptop by typing t
 ```
 npm run ios
 ```
-this will start the simulator that will auto refresh as you make changes.
+this will start the simulator that will auto refresh as you make changes
+
+
 ---
 
 
