@@ -59,16 +59,16 @@ this will start the simulator that will auto refresh as you make changes.
 
 
 ### Unsolved Problems && Future Features 
-* **Unsolved Problems**
- * search and selecting players is kinda slow
- * want to figure out how to better use redux, AsyncStorage
-* **Future Features**
- * Voting for players in the matchups 
- * Profile specific page that will show your specific favorite team news and team's players news/stats  
- * iMessage application to show stats/argue in group messages
- * a share to social media integration (tweet stat matchups to start conversations)
- * pulling Twitter feed for NBA/Team specific updates
- * finding historical data and being able to pick years for the stats for each player
+* **Unsolved Problems**:
+  * search and selecting players is kinda slow
+  * want to figure out how to better use redux, AsyncStorage
+* **Future Features**:
+  * Voting for players in the matchups 
+  * Profile specific page that will show your specific favorite team news and team's players news/stats  
+  * iMessage application to show stats/argue in group messages
+  * a share to social media integration (tweet stat matchups to start conversations)
+  * pulling Twitter feed for NBA/Team specific updates
+  * finding historical data and being able to pick years for the stats for each player
 
  
  
