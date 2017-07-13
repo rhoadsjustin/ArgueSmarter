@@ -45,6 +45,8 @@ this will start the simulator that will auto refresh as you make changes.
 ### Wireframes
 ###### Homepage
 <img src="https://drive.google.com/file/d/0ByNIqXhcds8iMjRwSmNFUEdXZGM" height="60">
+###### Teampage
+<img src="ArgueSmarter/teamPage.png" height="60">
 
 
 ### Unsolved Problems && Future Features 
