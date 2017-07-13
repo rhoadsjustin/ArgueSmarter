@@ -42,6 +42,14 @@ if you have Xcode installed you can run the simulator on your laptop by typing t
 npm run ios
 ```
 this will start the simulator that will auto refresh as you make changes.
+---
+
+
+## Entity Relationship Diagram
+# <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/ERD.png?raw=true" height="600">
+
+---
+
 
 ## Wireframes
 ### Homepage 
@@ -57,6 +65,7 @@ this will start the simulator that will auto refresh as you make changes.
 ### Loginpage  
 # <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/loginPage.png?raw=true" height="600">
 
+---
 
 ### Unsolved Problems && Future Features 
 * **Unsolved Problems**:
