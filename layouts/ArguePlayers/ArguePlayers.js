@@ -25,7 +25,12 @@ import styles from './styles';
 import FeedNavbar from '../../components/FeedNavbar'
 import { NBA_API_KEY, COSMIC_SLUG, COSMIC_WRITE_KEY } from 'react-native-dotenv'
 import { Action } from 'react-native-router-flux'
+import { logoutUser } from '../../redux/reducers/users';
+import { bindActionCreators } from 'redux';
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ logoutUser }, dispatch)
+}
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -128,7 +133,7 @@ class ArguePlayers extends Component {
   render(){
     return (
       <Container style={styles.container}>
-        <FeedNavbar />
+        <FeedNavbar logout={this.props.logoutUser} />
         <Content>
           <Card>
             <CardItem header>
@@ -186,4 +191,4 @@ class ArguePlayers extends Component {
   }
 }
 
-export default connect(mapStateToProps)(ArguePlayers);
+export default connect(mapStateToProps, mapDispatchToProps)(ArguePlayers);
