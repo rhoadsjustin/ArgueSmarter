@@ -1,5 +1,5 @@
 ## ARGUE SMARTER - REACT NATIVE APP 
-# <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/assets/iTunesArtwork@3x.png?raw=true" height="60">
+# <img src="https://github.com/rhoadsjustin/ArgueSmarter/blob/master/assets/iTunesArtwork@3x.png?raw=true" height="300">
 
 ### What is argue smarter?
 
