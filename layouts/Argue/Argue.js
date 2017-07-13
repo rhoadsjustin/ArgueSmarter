@@ -17,7 +17,7 @@ import {
   Item,
   Spinner
 } from 'native-base';
-import { View, ScrollView, ActivityIndicator, Button as ButtonR } from 'react-native';
+import { View, ScrollView, ActivityIndicator, Button as ButtonR, AsyncStorage } from 'react-native';
 import TextField from '../../components/TextField';
 import styles from './styles';
 import FeedNavbar from '../../components/FeedNavbar'
@@ -56,7 +56,8 @@ class Argue extends Component {
         photo: ''
       },
       playerOneSelected: '',
-      playerTwoSelected: ''
+      playerTwoSelected: '',
+      asyncPlayers: []
     }
   }
 
@@ -149,6 +150,14 @@ class Argue extends Component {
     this.loadPlayers()
   }
 
+  componentWillMount(){
+    AsyncStorage.getItem(asyncPlayers).then((value) => {
+      this.setState({asyncPlayers: value});
+    }).then(() => {
+      console.log("LOCAL STORAGE PLAYERS: ", this.state.asyncPlayers);
+    })
+      .done();
+  }
   render(){
     return (
       <Container style={styles.container}>
