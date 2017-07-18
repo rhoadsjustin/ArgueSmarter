@@ -25,7 +25,12 @@ import styles from './styles';
 import FeedNavbar from '../../components/FeedNavbar'
 import { NBA_API_KEY, COSMIC_SLUG, COSMIC_WRITE_KEY } from 'react-native-dotenv'
 import { Action } from 'react-native-router-flux'
+import { logoutUser } from '../../redux/reducers/users';
+import { bindActionCreators } from 'redux';
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ logoutUser }, dispatch)
+}
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -47,39 +52,56 @@ class ArguePlayers extends Component {
       year: '',
       isLoading: true,
       canArgue: true,
+      player1votes: 0,
+      player2votes: 0,
+      isPosted: false
     }
   }
   loadPlayersStats() {
     this.loadPlayerOne()
     this.loadPlayerTwo()
-    this.postMatchup()
   }
   postMatchup() {
+    console.log("THIS IS PLAYER 1 NAME: ", this.state.player1.name)
     return fetch(`https://api.cosmicjs.com/v1/${COSMIC_SLUG}/add-object`, {
       method: 'POST',
       headers: { 'content-type': 'application/json'},
       body: JSON.stringify({
         write_key: COSMIC_WRITE_KEY,
-        title: this.state.player1.id + this.state.player2.id,
-        singular: 'Matchup',
+        title: `${this.state.player1.id}${this.state.player2.id}`,
+        singular: "Matchup",
         type_slug: 'matchups',
         metafields: [
           {
-            key: 'playerOne',
+            key: 'playerone',
             type: 'text',
             value: this.state.player1.name,
             required: true
           },
           {
-            key: 'playerTwo',
+            key: 'playertwo',
             type: 'text',
             value: this.state.player2.name,
             required: true
+          },
+          {
+            key: 'playeronevotes',
+            type: 'text',
+            value: this.state.player1votes,
+          },
+          {
+            key: 'playertwovotes',
+            type: 'text',
+            value: this.state.player2votes,
           }
+
               ]
           })
         })
       .then((response) => { console.log("IT POSTED")})
+      .then(this.setState({
+        isPosted: true
+      }))
       .catch(err => console.error(`Creating matchup unsuccessful`, err))
     }
   loadPlayerOne() {
@@ -128,7 +150,7 @@ class ArguePlayers extends Component {
   render(){
     return (
       <Container style={styles.container}>
-        <FeedNavbar />
+        <FeedNavbar logout={this.props.logoutUser} />
         <Content>
           <Card>
             <CardItem header>
@@ -151,10 +173,16 @@ class ArguePlayers extends Component {
               </Right>
             </CardItem>
             <CardItem footer>
-              <Button small rounded primary><Text>Vote for {this.state.player1.name}</Text></Button>
+              <Button small rounded primary onPress={ () => {this.setState({ player1votes: this.state.player1votes+1})}}><Text>Vote for {this.state.player1.name}</Text></Button>
+              <Right>
+                <Text>
+                  Total Votes: {this.state.player1votes}
+                </Text>
+              </Right>
             </CardItem>
          </Card>
         </Content>
+        <Button disabled={this.state.isPosted} rounded style={styles.button} onPress={() => this.postMatchup()}><Text>Submit Matchup</Text></Button>
         <Content>
           <Card>
             <CardItem header>
@@ -177,7 +205,12 @@ class ArguePlayers extends Component {
                 </Right>
             </CardItem>
             <CardItem footer>
-              <Button small rounded primary><Text>Vote for {this.state.player2.name}</Text></Button>
+              <Button small rounded primary onPress={ () => {this.setState({ player2votes: this.state.player2votes+1})}}><Text>Vote for {this.state.player2.name}</Text></Button>
+              <Right>
+                <Text>
+                  Total Votes: {this.state.player2votes}
+                </Text>
+              </Right>
             </CardItem>
          </Card>
         </Content>
@@ -186,4 +219,4 @@ class ArguePlayers extends Component {
   }
 }
 
-export default connect(mapStateToProps)(ArguePlayers);
+export default connect(mapStateToProps, mapDispatchToProps)(ArguePlayers);
