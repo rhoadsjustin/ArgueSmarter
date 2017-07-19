@@ -21,7 +21,7 @@ import {
   Left,
   Right
 } from 'native-base';
-import { WebView, Linking, ScrollView } from 'react-native';
+import { WebView, Linking, ScrollView, View } from 'react-native';
 import { bindActionCreators } from 'redux';
 import FeedNavbar from '../../components/FeedNavbar';
 import { logoutUser } from '../../redux/reducers/users';
@@ -116,6 +116,11 @@ showMoreNews() {
   })
 
 }
+
+openNewsStory(newsStory) {
+  Linking.openURL(newsStory).catch(err => console.error('An error occurred', err));
+}
+
 onHandleSubmit() {
   this.loadPlayersByTeam();
 }
@@ -147,7 +152,11 @@ onHandleSubmit() {
                      </Body>
                    </CardItem>
                    <CardItem footer>
-                       <Text>{newsStory.source}</Text>
+                     <View>
+                       <Text onPress={() => this.openNewsStory(newsStory.url)}>
+                         {newsStory.source}
+                       </Text>
+                     </View>
                    </CardItem>
                  </Card>
                )

@@ -14,5 +14,6 @@ export default {
   footer: {
     flexDirection: 'column',
     alignContent: 'flex-start'
-  }
+  },
+
 };
