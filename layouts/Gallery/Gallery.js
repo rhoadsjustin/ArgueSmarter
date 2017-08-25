@@ -57,7 +57,7 @@ class ArguePlayers extends Component {
       .then((response) => {
         let data = response._bodyInit
         let prettyData = JSON.parse(data)
-        console.log("LOOK at THIS: ", prettyData.objects[0]._id)
+        console.log("LOOK at THIS: ", prettyData.objects)
         let prettierData = prettyData.objects
         return prettierData
       })
@@ -69,7 +69,8 @@ class ArguePlayers extends Component {
           player1photo: matchup.metadata.playeronephoto || 'https://github.com/rhoadsjustin/ArgueSmarter/blob/master/assets/giphy.gif?raw=true',
           player2name: matchup.metadata.playertwo,
           player2votes: matchup.metadata.playertwovotes,
-          player2photo: matchup.metadata.playertwophoto || 'https://github.com/rhoadsjustin/ArgueSmarter/blob/master/assets/giphy.gif?raw=true'
+          player2photo: matchup.metadata.playertwophoto || 'https://github.com/rhoadsjustin/ArgueSmarter/blob/master/assets/giphy.gif?raw=true',
+          postedBy: matchup.metadata.postedby
         }
       }))
       .then((prettyMatchups) => this.setState({
@@ -99,7 +100,8 @@ class ArguePlayers extends Component {
               </Left>
               <Body>
                 <Text>{matchup.player1name} vs {matchup.player2name}</Text>
-                <Text note>Votes: {matchup.player1votes} vs. Votes: {matchup.player2votes}</Text>
+                <Text>Votes: {matchup.player1votes} vs. Votes: {matchup.player2votes}</Text>
+                <Text note>Posted By: {matchup.postedBy}</Text>
               </Body>
               <Right>
                 <Thumbnail source={{uri: matchup.player2photo}} />
