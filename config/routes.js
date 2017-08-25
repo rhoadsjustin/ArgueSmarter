@@ -7,6 +7,7 @@ import Feed from '../layouts/feed'
 import Argue from '../layouts/Argue'
 import Navbar from '../components/StaticNavbar'
 import ArguePlayers from '../layouts/ArguePlayers'
+import Gallery from '../layouts/Gallery'
 
 const scenes = Actions.create(
   <Scene key="root">
@@ -16,6 +17,7 @@ const scenes = Actions.create(
     <Scene key="feed" component={Feed} title="Your Feed" type={ActionConst.REPLACE} hideNavBar />
     <Scene key="argue" component={Argue} type={ActionConst.REPLACE} hideNavBar />
     <Scene key="arguePlayers" component={ArguePlayers} type={ActionConst.REPLACE} hideNavBar />
+    <Scene key="gallery" component={Gallery} type={ActionConst.REPLACE} hideNavBar />
   </Scene>
 );
 

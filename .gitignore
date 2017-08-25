@@ -1,4 +1,4 @@
-node_modules/
 .expo/
 npm-debug.*
-config/cosmic.js
+node_modules/
+config/cosmics.js

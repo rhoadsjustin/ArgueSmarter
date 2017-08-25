@@ -26,6 +26,11 @@ export default (props) => (
     onPress={() => Actions.feed()}>
       <Text>News</Text>
     </Button>
+  <Button
+    transparent
+    onPress={() => Actions.gallery()}>
+      <Text>Gallery</Text>
+    </Button>
   <Right>
     <Button
       transparent

@@ -79,10 +79,20 @@ class ArguePlayers extends Component {
             required: true
           },
           {
+            key: 'playeronephoto',
+            type: 'text',
+            value: this.state.player1.photo
+          },
+          {
             key: 'playertwo',
             type: 'text',
             value: this.state.player2.name,
             required: true
+          },
+          {
+            key: 'playertwophoto',
+            type: 'text',
+            value: this.state.player2.photo
           },
           {
             key: 'playeronevotes',
@@ -93,6 +103,11 @@ class ArguePlayers extends Component {
             key: 'playertwovotes',
             type: 'text',
             value: this.state.player2votes,
+          },
+          {
+            key: 'postedby',
+            type: 'text',
+            value: this.props.user.username,
           }
 
               ]
@@ -148,6 +163,7 @@ class ArguePlayers extends Component {
   }
 
   render(){
+    console.log(this.props.user);
     return (
       <Container style={styles.container}>
         <FeedNavbar logout={this.props.logoutUser} />
