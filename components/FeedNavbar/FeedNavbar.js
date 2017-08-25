@@ -9,7 +9,7 @@ import {
   Right,
   Body } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-
+import styles from './styles';
 
 export default (props) => (
   <Header>
@@ -23,6 +23,7 @@ export default (props) => (
   </Left>
   <Button
     transparent
+    style={styles.newsButton}
     onPress={() => Actions.feed()}>
       <Text>News</Text>
     </Button>
