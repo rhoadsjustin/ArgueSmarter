@@ -16,8 +16,7 @@ export default (props) => (
     <Left>
       <Button
         transparent
-        onPress={() => props.logout()}
-      >
+        onPress={() => props.logout()}>
           <Text>Logout</Text>
       </Button>
   </Left>
@@ -31,6 +30,11 @@ export default (props) => (
     transparent
     onPress={() => Actions.gallery()}>
       <Text>Gallery</Text>
+    </Button>
+    <Button
+      transparent
+      onPress={() => Actions.scoreboard()}>
+      <Text>Scoreboard</Text>
     </Button>
   <Right>
     <Button

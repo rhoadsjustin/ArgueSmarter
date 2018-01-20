@@ -7,7 +7,7 @@ import {
   Button,
   Thumbnail
 } from 'native-base';
-import { View, Image } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles'
 import logo from '../../assets/giphy.gif'
@@ -15,7 +15,7 @@ import background from '../../assets/bball.jpg'
 
 
 export default () => (
-  <Image source={background} style={styles.image}>
+  <ImageBackground source={background} style={styles.image}>
   <Container style={styles.container}>
     <Content>
       <View style={styles.iconBox}>
@@ -47,5 +47,5 @@ export default () => (
       <Text note style={styles.or}>App Created By Justin Rhoads</Text> 
     </Content>
   </Container>
-  </Image>
+  </ImageBackground>
 )
