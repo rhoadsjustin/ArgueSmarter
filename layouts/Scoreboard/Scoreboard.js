@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
     Container,
+    Card,
+    CardItem,
+    Image,
     Content,
     Text,
     Button,
@@ -43,7 +46,8 @@ class Scoreboard extends Component {
             super();
             this.state = {
                 games: [],
-                gameDate: ''
+                gameDate: '',
+                longGameDate: ''
             }
 
         }
@@ -57,16 +61,45 @@ class Scoreboard extends Component {
                 .then((res) => {
                     let data = res._bodyInit;
                   console.log(JSON.parse(data))
+                  return cleanGameData = JSON.parse(data)
                 })
+                .then((cleanGameData) => gamesList = cleanGameData.map(game => {
+                    return {
+                        id: game.GameID,
+                        awayTeamID: game.AwayTeamID,
+                        awayTeamScore: game.AwayTeamScore,
+                        awayTeam: game.AwayTeam,
+                        homeTeamID: game.HomeTeamID,
+                        homeTeamScore: game.HomeTeamScore,
+                        homeTeam: game.HomeTeam,
+                        overAndUnder: game.OverUnder,
+                        isFinished: game.IsClosed,
+                        gameDateTime: game.DateTime
+                    }
+                }))
+                .then((gamesList) => this.setState({
+                    games: gamesList
+                })) 
             .catch((err) => {console.log("error", err)})
         }
 
+        goBackADay(){
+            var currentDateSelected = this.state.longGameDate;
+            var yesterday = new Date(currentDateSelected.setDate(currentDateSelected.getDate() - 1));
+            yesterday = yesterday.toISOString().substring(0, 10);
+            console.log(yesterday);
+            this.setState({
+                gameDate: yesterday
+            }, () => {this.loadGames()})
+        }
+
         componentDidMount(){
-            var today = new Date();
-            today = today.toISOString().substring(0, 10);
+            var longToday = new Date();
+            var today = longToday.toISOString().substring(0, 10);
             console.log(today);
             this.setState({
-                gameDate: today
+                gameDate: today,
+                longGameDate: longToday
             }, () => {
                 this.loadGames()
             })
@@ -74,10 +107,28 @@ class Scoreboard extends Component {
         }
         render(){
             return (
-                <Container>
+                <Container >
                     <FeedNavbar logout={this.props.logoutUser} />
+                    <Container style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
                     {/* TODO: input field for game Date or calendar button */}
+                        { this.state.games.map((game, i) => {
+                            i++;
+                            return (
+                                <View key={i} style={{ backgroundColor: '#CCC', margin: 10, width: 100, height: 100 }}>    
+                                    <Text>
+                                    {game.awayTeam} vs. {game.homeTeam}
+                                    </Text>
+                                    <Text>
+                                        {game.awayTeamScore} - {game.homeTeamScore}
+                                    </Text>
+                                </View>
+                            )
+                        })}
                 </Container>
+                        <Button style={{ justifyContent: 'center'}} onPress={this.goBackADay.bind(this)}>
+                            <Text>Yesterday's Games</Text>
+                        </Button>
+            </Container>
             )
         }
 
