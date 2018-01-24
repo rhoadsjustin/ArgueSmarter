@@ -115,12 +115,14 @@ class Scoreboard extends Component {
                             i++;
                             return (
                                 <View key={i} style={{ backgroundColor: '#CCC', margin: 10, width: 100, height: 100 }}>    
+                                    <Card>
                                     <Text>
                                     {game.awayTeam} vs. {game.homeTeam}
                                     </Text>
                                     <Text>
                                         {game.awayTeamScore} - {game.homeTeamScore}
                                     </Text>
+                                    </Card>
                                 </View>
                             )
                         })}

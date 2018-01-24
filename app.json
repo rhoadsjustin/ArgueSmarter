@@ -6,7 +6,7 @@
    "slug": "argue-smarter",
    "sdkVersion": "25.0.0",
    "ios": {
-     "bundleIdentifier": "com.rhoadsDev.arguesmarter"
+     "bundleIdentifier": "com.rhoadsDevelopers.arguesmarter"
    },
    "android": {
      "package": "com.rhoadsDev.arguesmarter"
