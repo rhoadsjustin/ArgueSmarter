@@ -12,35 +12,35 @@ import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
 export default (props) => (
-  <Header>
+  <Header >
     <Left>
       <Button
         transparent
         onPress={() => props.logout()}>
-          <Text>Logout</Text>
+        {/* todo: add scene for profile page */}
+          <Icon name="ios-contact" style={styles.icon} />
       </Button>
   </Left>
   <Button
     transparent
-    style={styles.newsButton}
     onPress={() => Actions.feed()}>
-      <Text>News</Text>
+      <Icon name="ios-paper" style={styles.icon}/>
     </Button>
   <Button
     transparent
     onPress={() => Actions.gallery()}>
-      <Text>Gallery</Text>
+      <Icon name="ios-people" style={styles.icon} />
     </Button>
     <Button
       transparent
       onPress={() => Actions.scoreboard()}>
-      <Text>Scoreboard</Text>
+      <Icon name="ios-podium" style={styles.icon} />
     </Button>
   <Right>
     <Button
       transparent
       onPress={() => Actions.argue()}>
-      <Text>Argue</Text>
+      <Icon name="ios-contacts" style={styles.icon} />
     </Button>
     </Right>
   </Header>
