@@ -29,7 +29,6 @@ import { Actions } from 'react-native-router-flux'
 import { logoutUser } from '../../redux/reducers/users';
 import { bindActionCreators } from 'redux';
 
-
 const mapStateToProps = state => ({
     user: state.user,
     p1: state.p1,
@@ -109,24 +108,38 @@ class Scoreboard extends Component {
             return (
                 <Container >
                     <FeedNavbar logout={this.props.logoutUser} />
-                    <Container style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
-                    {/* TODO: input field for game Date or calendar button */}
-                        { this.state.games.map((game, i) => {
-                            i++;
-                            return (
-                                <View key={i} style={{ backgroundColor: '#CCC', margin: 10, width: 100, height: 100 }}>    
-                                    <Card>
-                                    <Text>
-                                    {game.awayTeam} vs. {game.homeTeam}
-                                    </Text>
-                                    <Text>
-                                        {game.awayTeamScore} - {game.homeTeamScore}
-                                    </Text>
-                                    </Card>
-                                </View>
-                            )
-                        })}
+                        <ScrollView>
+                    <Container style={{ flex: 1, justifyContent: 'space-around'  ,flexDirection: 'row', flexWrap: 'wrap' }}>
+                        {/* TODO: input field for game Date or calendar button */}
+                            { this.state.games.map((game, i) => {
+                                i++;
+                                console.log("this is each game: ", game);
+                                return (
+                                    <View key={i} style={{ backgroundColor: 'rgba(52, 52, 52, 0.8)', margin: 10, width: 150, height: 175 }}>    
+                                        <Card style={styles.scoreBoard}>
+                                            <CardItem style={styles.scoreBoard}>
+                                                <Left>
+                                                    <Thumbnail size={20} source={{ uri: `/Users/justinrhoads/wdi/project3/ArgueSmarter/assets/img/${game.awayTeam}.png` }} />
+                                                </Left>
+                                                <Right>
+                                                    <Thumbnail size={20} source={{ uri: `/Users/justinrhoads/wdi/project3/ArgueSmarter/assets/img/${game.homeTeam}.png` }} />
+                                                </Right>
+                                                </CardItem>
+                                            <CardItem style={styles.scoreBoard}>
+                                                    <Body>
+                                                    <Text style={styles.gameInfoText}>{game.awayTeam} vs. {game.homeTeam}</Text>
+                                                    <Text style={styles.gameInfoText}>Final: {game.awayTeamScore} - {game.homeTeamScore}</Text>
+                                                    </Body>
+                                                 </CardItem>
+                                            <CardItem style={styles.scoreBoard}>
+                                                <Text style={styles.gameInfoText}>O/U: {game.overAndUnder}</Text>
+                                              </CardItem>
+                                        </Card>
+                                    </View>
+                                )
+                            })}
                 </Container>
+                        </ScrollView>
                         <Button style={{ justifyContent: 'center'}} onPress={this.goBackADay.bind(this)}>
                             <Text>Yesterday's Games</Text>
                         </Button>
