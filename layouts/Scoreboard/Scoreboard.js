@@ -67,7 +67,7 @@ class Scoreboard extends Component {
                         gameCity: game.city,
                         gameLink: game.dl['link'].url,
                         gameUrl: game.game_url,
-                        id: game.GameID,
+                        gameID: game.id,
                         awayTeamID: game.visitor["team_key"],
                         awayTeamScore: game.visitor.score,
                         awayTeam: game.visitor.nickname,
