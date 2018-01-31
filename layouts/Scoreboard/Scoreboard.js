@@ -52,29 +52,34 @@ class Scoreboard extends Component {
 
         }
         loadGames() {
-            return fetch(`https://api.fantasydata.net/v3/nba/scores/JSON/GamesByDate/${this.state.gameDate}`, {
+            return fetch(`http://data.nba.com/data/5s/json/cms/noseason/scoreboard/20180130/games.json`, {
                 method: 'GET',
-                headers: {
-                    'Ocp-Apim-Subscription-Key': NBA_API_KEY,
-                }
             })
                 .then((res) => {
                     let data = res._bodyInit;
                   console.log(JSON.parse(data))
                   return cleanGameData = JSON.parse(data)
                 })
-                .then((cleanGameData) => gamesList = cleanGameData.map(game => {
+                .then((cleanGameData) => gamesList = cleanGameData["sports_content"].games.game.map(game => {
+                    console.log("Here is the game: ", game);
                     return {
+                        gameArena: game.arena,
+                        gameCity: game.city,
+                        gameLink: game.dl['link'].url,
+                        gameUrl: game.game_url,
                         id: game.GameID,
-                        awayTeamID: game.AwayTeamID,
-                        awayTeamScore: game.AwayTeamScore,
-                        awayTeam: game.AwayTeam,
-                        homeTeamID: game.HomeTeamID,
-                        homeTeamScore: game.HomeTeamScore,
-                        homeTeam: game.HomeTeam,
+                        awayTeamID: game.visitor["team_key"],
+                        awayTeamScore: game.visitor.score,
+                        awayTeam: game.visitor.nickname,
+                        awayTeamCity: game.visitor.city,
+                        homeTeamID: game.home.team_key,
+                        homeTeamCity: game.home.city,
+                        homeTeamScore: game.home.score,
+                        homeTeam: game.home.nickname,
                         overAndUnder: game.OverUnder,
                         isFinished: game.IsClosed,
-                        gameDateTime: game.DateTime
+                        gameDateTime: game.time,
+                        gameTickets: game.ticket['ticket_link']
                     }
                 }))
                 .then((gamesList) => this.setState({
@@ -103,8 +108,10 @@ class Scoreboard extends Component {
     }
 
         componentDidMount(){
+            var today = new Date().toLocaleString('zu-ZA').slice(0, 10).replace(/-/g, '');
+
             var longToday = new Date();
-            var today = longToday.toISOString().substring(0, 10);
+            // var today = longToday.toISOString().substring(0, 10);
             console.log(today);
             this.setState({
                 gameDate: today,
@@ -124,8 +131,8 @@ class Scoreboard extends Component {
                         {/* TODO: input field for game Date or calendar button */}
                             { this.state.games.map((game, i) => {
                                 i++;
-                                let awayTeamImage = game.awayTeam
-                                let homeTeamImage = game.homeTeam
+                                let awayTeamImage = game.awayTeamID
+                                let homeTeamImage = game.homeTeamID
                                 return (
                                     <View key={i} style={{ backgroundColor: 'rgba(52, 52, 52, 0.8)', margin: 10, width: 150, height: 175 }}>    
                                         <Card style={styles.scoreBoard}>
