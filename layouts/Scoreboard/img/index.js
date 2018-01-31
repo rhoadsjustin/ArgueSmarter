@@ -22,7 +22,7 @@ const images = {
     OKC: require('./OKC.png'),
     ORL: require('./ORL.png'),
     PHI: require('./PHI.png'),
-    PHO: require('./PHO.png'),
+    PHX: require('./PHX.png'),
     POR: require('./POR.png'),
     SAS: require('./SAS.png'),
     SAC: require('./SAC.png'),

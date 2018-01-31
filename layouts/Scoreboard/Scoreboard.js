@@ -20,7 +20,7 @@ import {
     Item,
     Spinner
 } from 'native-base';
-import { View, ScrollView, ActivityIndicator, Button as ButtonR } from 'react-native';
+import { View, ScrollView, ActivityIndicator, Button as ButtonR, WebView } from 'react-native';
 import TextField from '../../components/TextField';
 import styles from './styles';
 import FeedNavbar from '../../components/FeedNavbar'
@@ -52,7 +52,7 @@ class Scoreboard extends Component {
 
         }
         loadGames() {
-            return fetch(`http://data.nba.com/data/5s/json/cms/noseason/scoreboard/20180130/games.json`, {
+            return fetch(`http://data.nba.com/data/5s/json/cms/noseason/scoreboard/${this.state.gameDate}/games.json`, {
                 method: 'GET',
             })
                 .then((res) => {
@@ -91,7 +91,7 @@ class Scoreboard extends Component {
         goBackADay(){
             var currentDateSelected = this.state.longGameDate;
             var yesterday = new Date(currentDateSelected.setDate(currentDateSelected.getDate() - 1));
-            yesterday = yesterday.toISOString().substring(0, 10);
+            yesterday = yesterday.toLocaleString('zu-ZA').slice(0, 10).replace(/-/g, '');
             console.log(yesterday);
             this.setState({
                 gameDate: yesterday
@@ -100,7 +100,7 @@ class Scoreboard extends Component {
     goForwardADay() {
         var currentDateSelected = this.state.longGameDate;
         var tomorrow = new Date(currentDateSelected.setDate(currentDateSelected.getDate() + 1));
-        tomorrow = tomorrow.toISOString().substring(0, 10);
+        tomorrow = tomorrow.toLocaleString('zu-ZA').slice(0, 10).replace(/-/g, '');
         console.log(tomorrow);
         this.setState({
             gameDate: tomorrow
