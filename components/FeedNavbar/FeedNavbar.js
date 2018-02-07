@@ -12,11 +12,12 @@ import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
 export default (props) => (
-  <Header >
+  <Header>
+    <Text>{props.title}</Text>
     <Left>
       <Button
         transparent
-        onPress={() => props.logout()}>
+        onPress={() => Actions.profile()}>
         {/* todo: add scene for profile page */}
           <Icon name="ios-contact" style={styles.icon} />
       </Button>

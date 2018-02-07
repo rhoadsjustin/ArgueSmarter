@@ -3,10 +3,10 @@
    "name": "Argue Smarter",
    "icon": "./assets/iTunesArtwork@3x.png",
    "version": "1.0.0",
-   "slug": "argue-smarter",
+   "slug": "expo.io/@rhoadsjustin/argueSmarter",
    "sdkVersion": "25.0.0",
    "ios": {
-     "bundleIdentifier": "com.rhoadsDevelopers.arguesmarter"
+     "bundleIdentifier": "com.rhoadsDev.arguesmarter"
    },
    "android": {
      "package": "com.rhoadsDev.arguesmarter"

@@ -131,7 +131,6 @@ onHandleSubmit() {
   render(){
     return (
       <Container>
-        <FeedNavbar logout={this.props.logoutUser} />
        <Tabs initialPage={0}>
          <Tab heading="Team News">
            <ScrollView>

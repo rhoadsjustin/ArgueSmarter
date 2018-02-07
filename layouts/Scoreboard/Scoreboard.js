@@ -124,7 +124,6 @@ class Scoreboard extends Component {
         render(){
             return (
                 <Container >
-                    <FeedNavbar logout={this.props.logoutUser} />
                     <Text style={{ alignSelf: 'center', fontSize: 18}}>{this.state.gameDate}</Text>
                         <ScrollView contentContainerStyle={{flex: 0}}>
                     <Container style={{ flex: 1, justifyContent: 'space-around'  ,flexDirection: 'row', flexWrap: 'wrap' }}>

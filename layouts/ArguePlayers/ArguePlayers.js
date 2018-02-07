@@ -166,7 +166,6 @@ class ArguePlayers extends Component {
     console.log(this.props.user);
     return (
       <Container style={styles.container}>
-        <FeedNavbar logout={this.props.logoutUser} />
         <Content>
           <Card>
             <CardItem header>

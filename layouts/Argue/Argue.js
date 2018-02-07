@@ -167,7 +167,6 @@ class Argue extends Component {
   render(){
     return (
       <Container>
-        <FeedNavbar logout={this.props.logoutUser} />
         <Content>
           {/* searchbar for finding the players to argue about  */}
           <Header searchBar rounded>

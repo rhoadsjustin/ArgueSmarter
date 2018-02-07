@@ -57,7 +57,6 @@ class ArguePlayers extends Component {
       .then((response) => {
         let data = response._bodyInit
         let prettyData = JSON.parse(data)
-        console.log("LOOK at THIS: ", prettyData.objects)
         let prettierData = prettyData.objects
         return prettierData
       })
@@ -86,10 +85,8 @@ class ArguePlayers extends Component {
 
   render(){
     let matchupsList = this.state.matchups
-    console.log("THIS: ", matchupsList)
     return (
       <Container style={styles.container}>
-        <FeedNavbar logout={this.props.logoutUser} />
         <Content>
             <List>
           { matchupsList.map((matchup) => {
