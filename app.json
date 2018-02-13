@@ -1,15 +1,15 @@
 {
   "expo": {
-   "name": "Argue Smarter",
-   "icon": "./assets/iTunesArtwork@3x.png",
-   "version": "1.0.0",
-   "slug": "expo.io/@rhoadsjustin/slug",
-   "sdkVersion": "25.0.0",
-   "ios": {
-     "bundleIdentifier": "com.rhoadsDev.arguesmarter"
-   },
-   "android": {
-     "package": "com.rhoadsDev.arguesmarter"
-   }
+    "name": "Argue Smarter",
+    "icon": "./assets/iTunesArtwork@3x.png",
+    "version": "1.0.0",
+    "slug": "expo.io/@rhoadsjustin/argue-smarter",
+    "sdkVersion": "25.0.0",
+    "ios": {
+      "bundleIdentifier": "com.rhoadsDev.arguesmarter"
+    },
+    "android": {
+      "package": "com.rhoadsDev.arguesmarter"
+    }
   }
 }

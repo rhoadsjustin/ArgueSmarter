@@ -1,6 +1,6 @@
 export default {
   container: {
-    marginTop: 128,
+    marginTop: 115,
   },
   icon: {
     fontSize: 96,

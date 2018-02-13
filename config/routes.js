@@ -14,7 +14,7 @@ import FeedNavbar from '../components/FeedNavbar/FeedNavbar';
 
 const scenes = Actions.create(
   <Scene key="root">
-    <Scene key="welcome" component={Welcome} title="Welcome" initial={true} />
+    <Scene key="welcome" component={Welcome} title="Welcome" initial={true} type={ActionConst.REPLACE}/>
     <Scene key="login" component={Login} title="Login" type={ActionConst.REPLACE} />
     <Scene key="signup" component={Signup} title="Create New Account" type={ActionConst.REPLACE} />
     <Scene key="feed" component={Feed} title="Your Feed" type={ActionConst.REPLACE} navBar={FeedNavbar}/>

@@ -138,6 +138,5 @@ export const currentUserInfo = () => dispatch => {
   Actions.profile(user);
 }
 export const logoutUser = () => dispatch => {
-  dispatch(logout());
-  Actions.welcome();
+  dispatch(logout())
 }
