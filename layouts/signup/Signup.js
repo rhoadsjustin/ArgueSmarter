@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ImagePicker } from 'expo';
 import { Actions } from 'react-native-router-flux';
-import {View} from 'react-native';
+import {View, ImagePickerIOS} from 'react-native';
 import {
   Container,
   Content,
@@ -86,15 +85,11 @@ class Signup extends Component {
     })
   }
 
-  uploadImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-    });
-    if (!result.cancelled) {
-      this.setState({ image: result.uri });
-    }
-  };
+  uploadImage = () => {
+    ImagePickerIOS.openSelectDialog({}, imageUri => {
+      this.setState({ image: imageUri});
+    }, error => console.error(error));
+  }
 
   loadTeams() {
    return fetch('https://api.fantasydata.net/v3/nba/scores/JSON/teams', {

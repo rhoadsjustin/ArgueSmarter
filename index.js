@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, AppRegistry } from 'react-native';
 import Router from './config/routes';
-import { Font, AppLoading } from 'expo';
 import { Provider, connect } from 'react-redux';
 import configureStore from './redux/store';
 
@@ -14,22 +13,8 @@ export default class App extends React.Component {
       isReady: false,
     }
   }
-  async componentWillMount() {
-    await Font.loadAsync({
-      'ESPN-BoldItl' : require('./assets/fonts/esp_bdit.ttf'),
-      'ESPN-Bold' : require('./assets/fonts/esp_bold.ttf'),
-      'ESPN-Itl' : require('./assets/fonts/esp_ital.ttf'),
-      'ESPN' : require('./assets/fonts/esp.ttf'),
-
-    });
-
-    this.setState({isReady: true});
-  }
 
   render() {
-    if(!this.state.isReady) {
-      return <AppLoading />;
-    }
     return (
       <Provider store={store}>
         <Router />
@@ -47,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('main', () => App);
+AppRegistry.registerComponent('ArgueSmarter', () => App);
