@@ -28,7 +28,7 @@ import { NBA_API_KEY } from 'react-native-dotenv'
 import { Actions } from 'react-native-router-flux'
 import { logoutUser } from '../../redux/reducers/users';
 import { bindActionCreators } from 'redux';
-import Images from './img/index';
+import Images from '../img/index';
 
 const mapStateToProps = state => ({
     user: state.user,

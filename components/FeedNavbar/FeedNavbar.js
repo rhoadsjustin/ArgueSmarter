@@ -13,7 +13,6 @@ import styles from './styles';
 
 export default (props) => (
   <Header>
-    <Text>{props.title}</Text>
     <Left>
       <Button
         transparent

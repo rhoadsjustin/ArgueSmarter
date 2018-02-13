@@ -38,8 +38,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 class Feed extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       news: [],
       start_pos: 0,
@@ -129,6 +129,7 @@ onHandleSubmit() {
 }
 
   render(){
+    console.log("HERE's the USER: ",this.props);
     return (
       <Container>
        <Tabs initialPage={0}>

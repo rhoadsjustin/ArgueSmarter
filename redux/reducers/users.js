@@ -8,12 +8,18 @@ import { COSMIC_SLUG, NBA_API_KEY } from 'react-native-dotenv';
 const CREATE_USER = 'CREATE_USER';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
+const CURRENT_USER = 'CURRENT_USER';
 
 // Action Creators
 const createUser = user => ({ type: CREATE_USER, user });
 const login = user => ({ type: LOGIN, user });
 const logout = () => ({ type: LOGOUT });
+const currentUser = user => ({ type: CURRENT_USER, user });
 
+//Initial state 
+const initialState = {
+  user: ''
+}
 // Reducer
 export default (user = {}, action) => {
   switch (action.type) {
@@ -93,7 +99,7 @@ export const authenticate = user => dispatch => {
   return axios.get(`https://api.cosmicjs.com/v1/${COSMIC_SLUG}/object-type/users/search?metafield_key=username&metafield_value=${user.username}`)
     .then(res => res.data)
     .then(data => {
-      console.log('RESPONSE: ', data);
+      console.log('RESPONSE USER DATA: ', data);
       if (data.objects) {
         const userData = data.objects[0];
         return {
@@ -127,7 +133,10 @@ export const authenticate = user => dispatch => {
     })
     .catch(error => console.error('Login unsuccessful', error))
 }
-
+export const currentUserInfo = () => dispatch => {
+  dispatch(currentUser());
+  Actions.profile(user);
+}
 export const logoutUser = () => dispatch => {
   dispatch(logout());
   Actions.welcome();

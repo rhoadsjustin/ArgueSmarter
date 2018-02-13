@@ -3,8 +3,9 @@ import { StyleSheet, Text, View, AppRegistry } from 'react-native';
 import Router from './config/routes';
 import { Font, AppLoading } from 'expo';
 import { Provider, connect } from 'react-redux';
-import store from './redux/store';
+import configureStore from './redux/store';
 
+const store = configureStore();
 
 export default class App extends React.Component {
   constructor() {

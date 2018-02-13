@@ -56,7 +56,7 @@ class Login extends Component {
             password: '',
           })
         } else {
-          Actions.feed();
+          Actions.feed(this.props.user);
         }
       });
   }
