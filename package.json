@@ -20,7 +20,9 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "base-64": "^0.1.0",
     "expo": "^25.0.0",
+    "mysportsfeeds-node": "^1.0.0",
     "native-base": "^2.2.0",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.52.0",

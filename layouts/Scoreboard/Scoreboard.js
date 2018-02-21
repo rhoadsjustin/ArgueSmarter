@@ -24,11 +24,12 @@ import { View, ScrollView, ActivityIndicator, Button as ButtonR, WebView } from 
 import TextField from '../../components/TextField';
 import styles from './styles';
 import FeedNavbar from '../../components/FeedNavbar'
-import { NBA_API_KEY } from 'react-native-dotenv'
+import { NBA_API_KEY, MSF_AUTH } from 'react-native-dotenv'
 import { Actions } from 'react-native-router-flux'
 import { logoutUser } from '../../redux/reducers/users';
 import { bindActionCreators } from 'redux';
 import Images from '../img/index';
+import base64 from 'base-64';
 
 const mapStateToProps = state => ({
     user: state.user,
@@ -52,34 +53,37 @@ class Scoreboard extends Component {
 
         }
         loadGames() {
-            return fetch(`http://data.nba.com/data/5s/json/cms/noseason/scoreboard/${this.state.gameDate}/games.json`, {
+            var input = MSF_AUTH;
+            console.log("HERE'S the input", input);
+
+            var encodedData = base64.encode(input);
+            console.log(encodedData)
+            return fetch(`https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/daily_game_schedule.json?fordate=${this.state.gameDate}`, {
                 method: 'GET',
+                headers: {
+                    'Authorization': `Basic ${MSF_AUTH}`
+                }
             })
                 .then((res) => {
                     let data = res._bodyInit;
                   console.log(JSON.parse(data))
                   return cleanGameData = JSON.parse(data)
                 })
-                .then((cleanGameData) => gamesList = cleanGameData["sports_content"].games.game.map(game => {
+                .then((cleanGameData) => gamesList = cleanGameData["dailygameschedule"].gameentry.map(game => {
                     console.log("Here is the game: ", game);
                     return {
-                        gameArena: game.arena,
-                        gameCity: game.city,
-                        gameLink: game.dl['link'].url,
-                        gameUrl: game.game_url,
+                        awayTeam: game.awayTeam.Abbreviation,
+                        awayTeamCity: game.awayTeam.City,
+                        awayTeamID: game.awayTeam.ID,
+                        awayTeamName: game.awayTeam.Name,
+                        homeTeam: game.homeTeam.Abbreviation,
+                        homeTeamCity: game.homeTeam.City,
+                        homeTeamID: game.homeTeam.ID,
+                        homeTeamName: game.homeTeam.Name,
                         gameID: game.id,
-                        awayTeamID: game.visitor["team_key"],
-                        awayTeamScore: game.visitor.score,
-                        awayTeam: game.visitor.nickname,
-                        awayTeamCity: game.visitor.city,
-                        homeTeamID: game.home.team_key,
-                        homeTeamCity: game.home.city,
-                        homeTeamScore: game.home.score,
-                        homeTeam: game.home.nickname,
-                        overAndUnder: game.OverUnder,
-                        isFinished: game.IsClosed,
-                        gameDateTime: game.time,
-                        gameTickets: game.ticket['ticket_link']
+                        gameDate: this.state.gameDate,
+                        gameLocation: game.location,
+                        gameStartTime: game.time
                     }
                 }))
                 .then((gamesList) => this.setState({
@@ -124,14 +128,14 @@ class Scoreboard extends Component {
         render(){
             return (
                 <Container >
-                    <Text style={{ alignSelf: 'center', fontSize: 18}}>{this.state.gameDate}</Text>
+                    <Text style={{ alignSelf: 'center', fontSize: 18, paddingTop: 20}}>{this.state.gameDate}</Text>
                         <ScrollView contentContainerStyle={{flex: 0}}>
                     <Container style={{ flex: 1, justifyContent: 'space-around'  ,flexDirection: 'row', flexWrap: 'wrap' }}>
                         {/* TODO: input field for game Date or calendar button */}
                             { this.state.games.map((game, i) => {
                                 i++;
-                                let awayTeamImage = game.awayTeamID
-                                let homeTeamImage = game.homeTeamID
+                                let awayTeamImage = game.awayTeam
+                                let homeTeamImage = game.homeTeam
                                 return (
                                     <View key={i} style={{ backgroundColor: 'rgba(52, 52, 52, 0.8)', margin: 10, width: 150, height: 175 }}>    
                                         <Card style={styles.scoreBoard}>
@@ -145,12 +149,15 @@ class Scoreboard extends Component {
                                                 </CardItem>
                                             <CardItem style={styles.scoreBoard}>
                                                     <Body>
-                                                    <Text style={styles.gameInfoText}>{game.awayTeam} vs. {game.homeTeam}</Text>
-                                                    <Text style={styles.gameInfoText}>Final: {game.awayTeamScore} - {game.homeTeamScore}</Text>
+                                                    <Text style={styles.gameInfoText}>{game.awayTeamName} vs. {game.homeTeamName}</Text>
+                                                    <Text style={styles.gameInfoText}>Time: {game.gameStartTime}</Text>
                                                     </Body>
                                                  </CardItem>
                                             <CardItem style={styles.scoreBoard}>
-                                                <Text style={styles.gameInfoText}>O/U: {game.overAndUnder}</Text>
+                                                <Text style={styles.gameInfoText}>Location: {game.gameLocation}</Text>
+                                                <Button onPress={() => Actions.boxscore({gameInfo: this.state.games[i]})}>
+                                                    <Text style={styles.gameInfoText}>Boxscore</Text>
+                                                </Button>
                                               </CardItem>
                                         </Card>
                                     </View>

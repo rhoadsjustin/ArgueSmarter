@@ -11,7 +11,7 @@ import Gallery from '../layouts/Gallery'
 import Scoreboard from '../layouts/Scoreboard'
 import Profile from '../layouts/Profile'
 import FeedNavbar from '../components/FeedNavbar/FeedNavbar';
-
+import BoxScore from '../layouts/BoxScore'
 const scenes = Actions.create(
   <Scene key="root">
     <Scene key="welcome" component={Welcome} title="Welcome" initial={true} />
@@ -23,6 +23,7 @@ const scenes = Actions.create(
     <Scene key="arguePlayers" component={ArguePlayers} type={ActionConst.REPLACE} navBar={FeedNavbar}/>
     <Scene key="gallery" component={Gallery} type={ActionConst.REPLACE} navBar={FeedNavbar}/>
     <Scene key="profile" component={Profile} type={ActionConst.REPLACE} navBar={FeedNavbar}/>
+    <Scene key="boxscore" component={BoxScore} />
   </Scene>
 );
 

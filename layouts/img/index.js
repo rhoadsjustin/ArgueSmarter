@@ -1,6 +1,6 @@
 const images = {
     ATL: require('./ATL.png'),
-    BKN: require('./BKN.png'),
+    BRO: require('./BRO.png'),
     BOS: require('./BOS.png'),
     CHA: require('./CHA.png'),
     CHI: require('./CHI.png'),
