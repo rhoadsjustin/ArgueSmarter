@@ -57,7 +57,6 @@ class Scoreboard extends Component {
             console.log("HERE'S the input", input);
 
             var encodedData = base64.encode(input);
-            console.log(encodedData)
             return fetch(`https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/daily_game_schedule.json?fordate=${this.state.gameDate}`, {
                 method: 'GET',
                 headers: {
@@ -66,11 +65,11 @@ class Scoreboard extends Component {
             })
                 .then((res) => {
                     let data = res._bodyInit;
-                  console.log(JSON.parse(data))
+                 
                   return cleanGameData = JSON.parse(data)
                 })
                 .then((cleanGameData) => gamesList = cleanGameData["dailygameschedule"].gameentry.map(game => {
-                    console.log("Here is the game: ", game);
+                   
                     return {
                         awayTeam: game.awayTeam.Abbreviation,
                         awayTeamCity: game.awayTeam.City,
@@ -126,6 +125,7 @@ class Scoreboard extends Component {
             // this.loadGames()
         }
         render(){
+            console.log("HERE ARE THE GAMES: ", this.state.games)
             return (
                 <Container >
                     <Text style={{ alignSelf: 'center', fontSize: 18, paddingTop: 20}}>{this.state.gameDate}</Text>
