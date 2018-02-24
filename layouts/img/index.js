@@ -19,7 +19,7 @@ const images = {
     MIN: require('./MIN.png'),
     NOP: require('./NOP.png'),
     NYK: require('./NYK.png'),
-    OKC: require('./OKC.png'),
+    OKL: require('./OKL.png'),
     ORL: require('./ORL.png'),
     PHI: require('./PHI.png'),
     PHX: require('./PHX.png'),

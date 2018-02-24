@@ -10,22 +10,22 @@ class TeamStats extends Component {
 
         return (
                 <View>
-                    {
-                        this.props.players.map(player => {
+                {
+                    this.props.players.map(player => {
                         return (
-                        <ListItem avatar>
-                            <Body>
-                                <Text>{player.name}</Text>
-                                <Text note>PTS: {player.PTS}</Text>
-                                <Text note>REB: {player.reb}</Text>
-                            </Body>
-                            <Right>
-                                <Text note>FG% {player.FGPCT}</Text>
-                            </Right>
-                        </ListItem>
+                            <ListItem avatar>
+                                <Body>
+                                    <Text>{player.name}</Text>
+                                    <Text note>PTS: {player.PTS}</Text>
+                                    <Text note>REB: {player.reb}</Text>
+                                </Body>
+                                <Right>
+                                    <Text note>FG% {player.FGPCT}</Text>
+                                </Right>
+                            </ListItem>
                         )
-                        })
-                    }
+                    })
+                }
                 </View>
                 )
 }

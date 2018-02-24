@@ -164,14 +164,10 @@ class BoxScore extends Component {
                                 </Body>
                             </CardItem>
                             <CardItem>
-                                <Left>
-                                    <Button transparent textStyle={{ color: '#87838B' }}>
-                                        <Icon name="logo-github" />
-                                        <Text>1,926 stars</Text>
-                                    </Button>
-                                </Left>
+                               <Text>Team Stats</Text>
                             </CardItem>
                             <List>
+                            <ScrollView>
                                 <Thumbnail source={images[this.props.gameInfo.awayTeam]} />
                                 {!this.state.loading ? this.state.awayPlayers.map((player, i) => {
                                     i++;
@@ -190,8 +186,9 @@ class BoxScore extends Component {
                                 }) :
                                     <Text>Loading</Text>
                                 }
-                            </List>
-                            <List>
+                            </ScrollView>
+                            <ScrollView>
+                          
                                 <Thumbnail source={images[this.props.gameInfo.homeTeam]} />
                                 {!this.state.loading ? this.state.homePlayers.map((player, i) => {
                                     i++;
@@ -210,6 +207,7 @@ class BoxScore extends Component {
                                      }) :
                                     <Text>Loading</Text>
                             }
+                            </ScrollView>
                             </List>
                         </Card>
                     </Content>
