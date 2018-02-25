@@ -37,7 +37,7 @@ class Profile extends Component {
                 height: 800}}>
             <Container>
                 <Content>
-                <Card style={{ flex: 0, marginTop: 50 }}>
+                        <Card style={{ flex: 0, marginTop: 50 }}>
                             <CardItem style={{flexDirection: 'column'}}>
                                     <Text style={{ fontSize: 20, marginTop: 20, alignSelf: 'center'}}>ArgueSmarter Profile</Text>
                                 <Left style={{flexDirection: 'row'}}>

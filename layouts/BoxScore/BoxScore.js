@@ -142,7 +142,7 @@ class BoxScore extends Component {
                 width: 425,
                 height: 800}}>
                 <Container>
-                    <Content style={{ paddingTop: 30 }}>
+                    <Content style={{ paddingTop: 50 }}>
                         <Card style={{ flex: 1 }}>
                             <CardItem>
                                 <Left>
@@ -158,46 +158,53 @@ class BoxScore extends Component {
                             </CardItem>
                             <CardItem>
                                 <Body>
-                                    <Text>
-                                    {this.props.gameInfo.awayTeamName} vs. {this.props.gameInfo.homeTeamName}
-                                    </Text>
+                                    <Text style={{ alignSelf: 'center'}}>Team Stats</Text>
                                 </Body>
                             </CardItem>
                             <CardItem>
-                               <Text>Team Stats</Text>
+                             
                             </CardItem>
                             <List>
                             <ScrollView>
+                                <Body style={{ flexDirection: 'row'}}>
                                 <Thumbnail source={images[this.props.gameInfo.awayTeam]} />
+                                <Text>{this.props.gameInfo.awayTeamName}</Text>
+                                </Body>
                                 {!this.state.loading ? this.state.awayPlayers.map((player, i) => {
-                                    i++;
                                     return (
                                         <ListItem avatar key={i}>
-                                            <Body>
                                                 <Text>{player.name}</Text>
+                                            <Body style={{flexDirection: 'row'}}>
                                                 <Text note>PTS: {player.PTS}</Text>
                                                 <Text note>REB: {player.reb}</Text>
+                                                <Text note>AST: {player.assists}</Text>
+                                                <Text note>STL: {player.stl}</Text>
                                             </Body>
                                             <Right>
                                                 <Text note>FG% {player.FGPCT}</Text>
                                             </Right>
                                         </ListItem>
-                                    )
+                                        )
+                                        i++;
                                 }) :
                                     <Text>Loading</Text>
                                 }
                             </ScrollView>
                             <ScrollView>
-                          
-                                <Thumbnail source={images[this.props.gameInfo.homeTeam]} />
+                                    <Body style={{ flexDirection: 'row' }}>
+                                        <Thumbnail source={images[this.props.gameInfo.homeTeam]} />
+                                        <Text>{this.props.gameInfo.homeTeamName}</Text>
+                                    </Body>
                                 {!this.state.loading ? this.state.homePlayers.map((player, i) => {
                                     i++;
                                     return (
                                         <ListItem avatar key={i}>
-                                            <Body>
                                                 <Text>{player.name}</Text>
+                                            <Body style={{flexDirection: 'row'}}>
                                                 <Text note>PTS: {player.PTS}</Text>
                                                 <Text note>REB: {player.reb}</Text>
+                                                <Text note>AST: {player.assists}</Text>
+                                                <Text note>STL: {player.stl}</Text>
                                             </Body>
                                             <Right>
                                                 <Text note>FG% {player.FGPCT}</Text>

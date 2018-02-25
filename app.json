@@ -3,7 +3,7 @@
    "name": "Argue Smarter",
    "icon": "./assets/iTunesArtwork@3x.png",
    "version": "1.0.0",
-   "slug": "expo.io/@rhoadsjustin/slug",
+   "slug": "argueSmarter",
    "sdkVersion": "25.0.0",
    "ios": {
      "bundleIdentifier": "com.rhoadsDev.arguesmarter"

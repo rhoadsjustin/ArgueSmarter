@@ -7,7 +7,8 @@ export default {
 
     },
     scoreBoard: {
-        backgroundColor: "rgba(52, 52, 52, 0.8)"
+        backgroundColor: "rgba(52, 52, 52, 0.8)",
+        borderRadius: 10
     },
     scoreBoardfooter: {
         backgroundColor: "rgba(52, 52, 52, 0.8)",

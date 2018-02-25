@@ -129,8 +129,8 @@ class Scoreboard extends Component {
                     width: 425,
                     height: 800
                 }}>
-                <Container >
-                        <View style={{ justifyContent: 'space-around', flexDirection: 'row'}}>
+                <Container>
+                        <View style={{ justifyContent: 'space-around', flexDirection: 'row', paddingTop: 10}}>
                                 <Button onPress={this.goBackADay.bind(this)}>
                                     <Icon name="ios-arrow-dropleft" />
                                 </Button>
@@ -143,12 +143,11 @@ class Scoreboard extends Component {
                     <Container style={{ flex: 1, justifyContent: 'space-around'  ,flexDirection: 'row', flexWrap: 'wrap' }}>
                         {/* TODO: input field for game Date or calendar button */}
                             { this.state.games.map((game, i) => {
-                                i++;
+                                
                                 let awayTeamImage = game.awayTeam
                                 let homeTeamImage = game.homeTeam
                                 return (
-                                     
-                                        <TouchableHighlight key={i} style={{ backgroundColor: 'rgba(52, 52, 52, 0.8)', margin: 10, width: 150, height: 175 }} onPress={() => Actions.boxscore({ gameInfo: this.state.games[i] })}> 
+                                    <TouchableHighlight key={i} style={{ backgroundColor: 'rgba(52, 52, 52, 0.8)', margin: 10, width: 150, height: 175, borderRadius: 10 }} onPress={() => Actions.boxscore({ gameInfo: this.state.games[i] })}> 
                                         <Card style={styles.scoreBoard}>
                                             <CardItem style={styles.scoreBoard}>
                                                 <Left>
@@ -171,6 +170,7 @@ class Scoreboard extends Component {
                                         </TouchableHighlight>
                                 
                                 )
+                                i++;
                             })}
                 </Container>
                         </ScrollView>
