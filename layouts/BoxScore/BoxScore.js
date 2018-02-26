@@ -141,48 +141,48 @@ class BoxScore extends Component {
             <ImageBackground source={background} style={{
                 width: 425,
                 height: 800}}>
-                <Container>
+               
                     <Content style={{ paddingTop: 50 }}>
                         <Card style={{ flex: 1 }}>
                             <CardItem>
                                 <Left>
                                     <Thumbnail source={images[this.props.gameInfo.awayTeam]} />
+                                </Left>
                                     <Body>
                                         <Text>{this.props.gameInfo.awayTeamName} vs. {this.props.gameInfo.homeTeamName}</Text>
-                                        <Text>Location: {this.props.gameInfo.gameLocation} </Text>
+                                        <Text style={{fontSize: 20}}> {this.props.gameInfo.awayTeamScore} - {this.props.gameInfo.homeTeamScore} </Text>
                                     </Body>
-                                </Left>
                                 <Right>
                                     <Thumbnail source={images[this.props.gameInfo.homeTeam]} />
                                 </Right>
                             </CardItem>
                             <CardItem>
                                 <Body>
-                                    <Text style={{ alignSelf: 'center'}}>Team Stats</Text>
+                                    <Text style={{ alignSelf: 'center', fontSize: 18, fontWeight: 'bold'}}>Team Stats</Text>
                                 </Body>
                             </CardItem>
                             <CardItem>
                              
                             </CardItem>
                             <List>
-                            <ScrollView>
+                            <ScrollView contentContainerStyle={{flex: 2}}>
                                 <Body style={{ flexDirection: 'row'}}>
                                 <Thumbnail source={images[this.props.gameInfo.awayTeam]} />
                                 <Text>{this.props.gameInfo.awayTeamName}</Text>
                                 </Body>
                                 {!this.state.loading ? this.state.awayPlayers.map((player, i) => {
                                     return (
-                                        <ListItem avatar key={i}>
+                                        <ListItem avatar key={i} style={{ justifyContent: 'flex-start'}}>
                                                 <Text>{player.name}</Text>
                                             <Body style={{flexDirection: 'row'}}>
                                                 <Text note>PTS: {player.PTS}</Text>
                                                 <Text note>REB: {player.reb}</Text>
                                                 <Text note>AST: {player.assists}</Text>
                                                 <Text note>STL: {player.stl}</Text>
-                                            </Body>
-                                            <Right>
                                                 <Text note>FG% {player.FGPCT}</Text>
-                                            </Right>
+                                        
+                                            </Body>
+                                        
                                         </ListItem>
                                         )
                                         i++;
@@ -198,17 +198,17 @@ class BoxScore extends Component {
                                 {!this.state.loading ? this.state.homePlayers.map((player, i) => {
                                     i++;
                                     return (
-                                        <ListItem avatar key={i}>
+                                        <ListItem avatar key={i} style={{flexDirection: 'column', alignContent: 'center'}}>
                                                 <Text>{player.name}</Text>
                                             <Body style={{flexDirection: 'row'}}>
                                                 <Text note>PTS: {player.PTS}</Text>
                                                 <Text note>REB: {player.reb}</Text>
                                                 <Text note>AST: {player.assists}</Text>
                                                 <Text note>STL: {player.stl}</Text>
-                                            </Body>
-                                            <Right>
                                                 <Text note>FG% {player.FGPCT}</Text>
-                                            </Right>
+                                            </Body>
+                                       
+                                           
                                         </ListItem>
                                      )
                                      }) :
@@ -218,7 +218,7 @@ class BoxScore extends Component {
                             </List>
                         </Card>
                     </Content>
-                </Container>
+                
             </ImageBackground>
         )
     }

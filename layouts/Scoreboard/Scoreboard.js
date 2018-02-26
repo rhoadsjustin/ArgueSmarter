@@ -55,7 +55,7 @@ class Scoreboard extends Component {
             var input = MSF_AUTH;
             console.log("HERE'S the input", input);
 
-            return fetch(`https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/daily_game_schedule.json?fordate=${this.state.gameDate}`, {
+            return fetch(`https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/scoreboard.json?fordate=${this.state.gameDate}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Basic ${MSF_AUTH}`
@@ -63,29 +63,35 @@ class Scoreboard extends Component {
             })
                 .then((res) => {
                     let data = res._bodyInit;
-                 
+                 console.log(JSON.parse(data));
                   return cleanGameData = JSON.parse(data)
                 })
-                .then((cleanGameData) => gamesList = cleanGameData["dailygameschedule"].gameentry.map(game => {
+                .then((cleanGameData) => gamesList = cleanGameData["scoreboard"].gameScore.map(game => {
                    
                     return {
-                        awayTeam: game.awayTeam.Abbreviation,
-                        awayTeamCity: game.awayTeam.City,
-                        awayTeamID: game.awayTeam.ID,
-                        awayTeamName: game.awayTeam.Name,
-                        homeTeam: game.homeTeam.Abbreviation,
-                        homeTeamCity: game.homeTeam.City,
-                        homeTeamID: game.homeTeam.ID,
-                        homeTeamName: game.homeTeam.Name,
-                        gameID: game.id,
+                        awayTeam: game.game.awayTeam.Abbreviation,
+                        awayTeamScore: game.awayScore,
+                        awayTeamCity: game.game.awayTeam.City,
+                        awayTeamID: game.game.awayTeam.ID,
+                        awayTeamName: game.game.awayTeam.Name,
+                        homeTeam: game.game.homeTeam.Abbreviation,
+                        homeTeamCity: game.game.homeTeam.City,
+                        homeTeamID: game.game.homeTeam.ID,
+                        homeTeamName: game.game.homeTeam.Name,
+                        homeTeamScore: game.homeScore,
+                        gameCompleted: game.isCompleted,
+                        gameInProgress: game.isInProgress,
+                        gameIsUnplayed: game.isUnplayed,
+                        gameID: game.ID,
                         gameDate: this.state.gameDate,
-                        gameLocation: game.location,
-                        gameStartTime: game.time
+                        gameLocation: game.game.location,
+                        gameStartTime: game.game.time
                     }
                 }))
                 .then((gamesList) => this.setState({
                     games: gamesList
-                })) 
+                },
+                console.log("Here's the games List: ", gamesList))) 
             .catch((err) => {console.log("error", err)})
         }
 
@@ -143,7 +149,7 @@ class Scoreboard extends Component {
                     <Container style={{ flex: 1, justifyContent: 'space-around'  ,flexDirection: 'row', flexWrap: 'wrap' }}>
                         {/* TODO: input field for game Date or calendar button */}
                             { this.state.games.map((game, i) => {
-                                
+                                let gameCompleted = game.gameCompleted
                                 let awayTeamImage = game.awayTeam
                                 let homeTeamImage = game.homeTeam
                                 return (
@@ -164,8 +170,8 @@ class Scoreboard extends Component {
                                                     </Body>
                                                  </CardItem>
                                             <CardItem style={styles.scoreBoard}>
-                                                <Text style={styles.gameInfoText}>Location: {game.gameLocation}</Text>
-                                              </CardItem>
+                                                <Text style={styles.gameInfoText}>Location: {game.gameLocation}</Text> 
+                                            </CardItem>
                                         </Card>
                                         </TouchableHighlight>
                                 
