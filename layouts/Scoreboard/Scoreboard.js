@@ -145,7 +145,7 @@ class Scoreboard extends Component {
                                     <Icon name="ios-arrow-dropright" />
                                 </Button>
                         </View>
-                        <ScrollView contentContainerStyle={{flex: 0}}>
+                        <ScrollView contentContainerStyle={{flex: 0, height: '100%'}}>
                     <Container style={{ flex: 1, justifyContent: 'space-around'  ,flexDirection: 'row', flexWrap: 'wrap' }}>
                         {/* TODO: input field for game Date or calendar button */}
                             { this.state.games.map((game, i) => {

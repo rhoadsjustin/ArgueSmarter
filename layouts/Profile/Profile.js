@@ -42,14 +42,16 @@ class Profile extends Component {
                                     <Text style={{ fontSize: 20, marginTop: 20, alignSelf: 'center'}}>ArgueSmarter Profile</Text>
                                 <Left style={{flexDirection: 'row'}}>
                                     <Thumbnail source={{ uri: this.props.user.profilePicture.url }} style={{ width: 100, height: 100}}/>
-                                    <Body>
-                                        <Text style={{ fontSize: 16}}>Username: {this.props.user.name}</Text>
+                                    <Body style={{ flexDirection: 'column'}}>
+                                        <Text style={{ fontSize: 16}}>Username: {this.props.user.username}</Text>
+                                        <Text style={{ fontSize: 16 }}>Name: {this.props.user.name}</Text>
+
                                     </Body>
                                 </Left>
                             </CardItem>
                             <CardItem>
                                 <Body style={{ alignItems: 'center'}}>
-                                    <Thumbnail source={images["ATL"]} style={{ height: 200, width: 200, flex: 1 }} />
+                                    <Thumbnail source={images[favTeam]} style={{ height: 200, width: 200, flex: 1 }} />
                                     <Text>
                                     Your Favorite Team: {favTeam}
                                     </Text>
