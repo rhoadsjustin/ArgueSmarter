@@ -172,7 +172,7 @@ class BoxScore extends Component {
                                 </Body>
                                 {!this.state.loading ? this.state.awayPlayers.map((player, i) => {
                                     return (
-                                        <ListItem avatar key={i} style={{ justifyContent: 'flex-start'}}>
+                                        <ListItem avatar key={i} style={{ flexDirection: 'column', alignContent: 'center' }}>
                                                 <Text>{player.name}</Text>
                                             <Body style={{flexDirection: 'row'}}>
                                                 <Text note>PTS: {player.PTS}</Text>

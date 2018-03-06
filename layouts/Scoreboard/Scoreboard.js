@@ -47,7 +47,8 @@ class Scoreboard extends Component {
             this.state = {
                 games: [],
                 gameDate: '',
-                longGameDate: ''
+                longGameDate: '',
+                shortDate: ''
             }
 
         }
@@ -98,31 +99,36 @@ class Scoreboard extends Component {
         goBackADay(){
             var currentDateSelected = this.state.longGameDate;
             var yesterday = new Date(currentDateSelected.setDate(currentDateSelected.getDate() - 1));
+            var shortYestrday = yesterday.toLocaleString('zu-ZA').slice(0, 10);
             yesterday = yesterday.toLocaleString('zu-ZA').slice(0, 10).replace(/-/g, '');
             console.log(yesterday);
             this.setState({
-                gameDate: yesterday
+                gameDate: yesterday,
+                shortDate: shortYestrday
             }, () => {this.loadGames()})
         }
     goForwardADay() {
         var currentDateSelected = this.state.longGameDate;
         var tomorrow = new Date(currentDateSelected.setDate(currentDateSelected.getDate() + 1));
+        var shortTomrrow = tomorrow.toLocaleString('zu-ZA').slice(0, 10);
         tomorrow = tomorrow.toLocaleString('zu-ZA').slice(0, 10).replace(/-/g, '');
         console.log(tomorrow);
         this.setState({
-            gameDate: tomorrow
+            gameDate: tomorrow,
+            shortDate: shortTomrrow
         }, () => { this.loadGames() })
     }
 
         componentWillMount(){
             var today = new Date().toLocaleString('zu-ZA').slice(0, 10).replace(/-/g, '');
-
+            var shortToday = new Date().toLocaleString('zu-ZA').slice(0, 10);
             var longToday = new Date();
             // var today = longToday.toISOString().substring(0, 10);
             console.log(today);
             this.setState({
                 gameDate: today,
-                longGameDate: longToday
+                longGameDate: longToday,
+                shortDate: shortToday
             }, () => {
                 this.loadGames()
             })
@@ -130,6 +136,7 @@ class Scoreboard extends Component {
         }
         render(){
             console.log("HERE ARE THE GAMES: ", this.state.games)
+
             return (
                 <ImageBackground source={background} style={{
                     width: 425,
@@ -137,11 +144,11 @@ class Scoreboard extends Component {
                 }}>
                 <Container>
                         <View style={{ justifyContent: 'space-around', flexDirection: 'row', paddingTop: 10}}>
-                                <Button onPress={this.goBackADay.bind(this)}>
+                            <Button onPress={this.goBackADay.bind(this)} style={{ backgroundColor: 'transparent' }}>
                                     <Icon name="ios-arrow-dropleft" />
                                 </Button>
-                    <Text style={{ alignSelf: 'center', fontSize: 18, paddingTop: 20}}>{this.state.gameDate}</Text>
-                                <Button onPress={this.goForwardADay.bind(this)}>
+                    <Text style={{ alignSelf: 'center', fontSize: 18, paddingTop: 20}}>{this.state.shortDate}</Text>
+                                <Button onPress={this.goForwardADay.bind(this)} style={{backgroundColor: 'transparent'}}>
                                     <Icon name="ios-arrow-dropright" />
                                 </Button>
                         </View>

@@ -12,7 +12,7 @@ import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
 export default (props) => (
-  <Header>
+  <Header style={{ borderTopColor: '#D3D3D3', borderTopWidth: .5}}>
     <Left>
       <Button
         transparent

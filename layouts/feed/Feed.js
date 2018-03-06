@@ -132,7 +132,7 @@ onHandleSubmit() {
     console.log("HERE's the USER: ",this.props);
     return (
       <Container>
-       <Tabs initialPage={0}>
+       <Tabs initialPage={0} style={{ paddingTop: 15}}>
          <Tab heading="Team News">
            <ScrollView>
              { this.state.news.slice(0, (this.state.start_pos+10)).map((newsStory) => {
