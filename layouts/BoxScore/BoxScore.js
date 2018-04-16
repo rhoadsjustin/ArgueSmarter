@@ -26,7 +26,7 @@ class BoxScore extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            playersObj: {}, 
+            playersObj: {},
             loading: true
         }
     }
@@ -37,7 +37,7 @@ class BoxScore extends Component {
         var homeTeam = this.props.gameInfo.homeTeam;
 
         var gameIdentifier = gameDate + '-' + awayTeam + "-" + homeTeam;
-        
+
         var input = MSF_AUTH;
         console.log("HERE'S the input", input);
         return fetch(`https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/game_boxscore.json?gameid=${gameIdentifier}`, {
@@ -69,7 +69,7 @@ class BoxScore extends Component {
                     to: player.stats.Tov['#text'],
                     FGA2: player.stats.Fg2PtAtt['#text'],
                     FGM2: player.stats.Fg2PtMade['#text'],
-                    FG2PCT: player.stats.Fg2PtPct['#text'], 
+                    FG2PCT: player.stats.Fg2PtPct['#text'],
                     FGA3: player.stats.Fg3PtAtt['#text'],
                     FGM3: player.stats.Fg3PtMade['#text'],
                     FG3PCT: player.stats.Fg3PtPct['#text'],
@@ -141,7 +141,7 @@ class BoxScore extends Component {
             <ImageBackground source={background} style={{
                 width: 425,
                 height: 800}}>
-               
+
                     <Content style={{ paddingTop: 50 }}>
                         <Card style={{ flex: 1 }}>
                             <CardItem>
@@ -162,7 +162,7 @@ class BoxScore extends Component {
                                 </Body>
                             </CardItem>
                             <CardItem>
-                             
+
                             </CardItem>
                             <List>
                             <ScrollView contentContainerStyle={{flex: 2}}>
@@ -180,9 +180,9 @@ class BoxScore extends Component {
                                                 <Text note>AST: {player.assists}</Text>
                                                 <Text note>STL: {player.stl}</Text>
                                                 <Text note>FG% {player.FGPCT}</Text>
-                                        
+
                                             </Body>
-                                        
+
                                         </ListItem>
                                         )
                                         i++;
@@ -207,8 +207,8 @@ class BoxScore extends Component {
                                                 <Text note>STL: {player.stl}</Text>
                                                 <Text note>FG% {player.FGPCT}</Text>
                                             </Body>
-                                       
-                                           
+
+
                                         </ListItem>
                                      )
                                      }) :
@@ -218,7 +218,7 @@ class BoxScore extends Component {
                             </List>
                         </Card>
                     </Content>
-                
+
             </ImageBackground>
         )
     }
