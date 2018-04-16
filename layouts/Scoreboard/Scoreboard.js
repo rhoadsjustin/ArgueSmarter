@@ -56,7 +56,7 @@ class Scoreboard extends Component {
             var input = MSF_AUTH;
             console.log("HERE'S the input", input);
 
-            return fetch(`https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/scoreboard.json?fordate=${this.state.gameDate}`, {
+            return fetch(`https://api.mysportsfeeds.com/v1.2/pull/nba/2018-playoff/scoreboard.json?fordate=${this.state.gameDate}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Basic ${MSF_AUTH}`

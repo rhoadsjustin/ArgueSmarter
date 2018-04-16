@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, ActivityIndicator, Button as ButtonR, ImageBackground } from 'react-native';
-import { Text, Container, Thumbnail, Content, Card, CardItem, Body, Left, Right, Button, Icon, Image, List, ListItem } from 'native-base';
+import { Text, Container, Header, Thumbnail, Content, Card, CardItem, Body, Left, Right, Button, Icon, Image, List, ListItem, Tab, Tabs } from 'native-base';
 import FeedNavbar from '../../components/FeedNavbar'
 import { Action } from 'react-native-router-flux'
 import { logoutUser, currentUserInfo } from '../../redux/reducers/users';
@@ -40,7 +40,7 @@ class BoxScore extends Component {
         
         var input = MSF_AUTH;
         console.log("HERE'S the input", input);
-        return fetch(`https://api.mysportsfeeds.com/v1.2/pull/nba/2017-2018-regular/game_boxscore.json?gameid=${gameIdentifier}`, {
+        return fetch(`https://api.mysportsfeeds.com/v1.2/pull/nba/2018-playoff/game_boxscore.json?gameid=${gameIdentifier}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Basic ${MSF_AUTH}`
@@ -137,11 +137,49 @@ class BoxScore extends Component {
     }
     render() {
         const favTeam = this.props.user.favTeam;
+
+        const awayTeamStats = !this.state.loading ? this.state.awayPlayers.map((player, i) => {
+            return (
+                <ListItem avatar key={i} style={{ flexDirection: 'column', alignContent: 'center' }}>
+                    <Text>{player.name}</Text>
+                    <Body style={{ flexDirection: 'row' }}>
+                        <Text note>PTS: {player.PTS}</Text>
+                        <Text note>REB: {player.reb}</Text>
+                        <Text note>AST: {player.assists}</Text>
+                        <Text note>STL: {player.stl}</Text>
+                        <Text note>FG% {player.FGPCT}</Text>
+
+                    </Body>
+
+                </ListItem>
+            )
+            i++;
+        }) :
+            <Text>Loading</Text>;
+        
+        const homeTeamStats = !this.state.loading ? this.state.homePlayers.map((player, i) => {
+            i++;
+            return (
+                <ListItem avatar key={i} style={{ flexDirection: 'column', alignContent: 'center' }}>
+                    <Text>{player.name}</Text>
+                    <Body style={{ flexDirection: 'row' }}>
+                        <Text note>PTS: {player.PTS}</Text>
+                        <Text note>REB: {player.reb}</Text>
+                        <Text note>AST: {player.assists}</Text>
+                        <Text note>STL: {player.stl}</Text>
+                        <Text note>FG% {player.FGPCT}</Text>
+                    </Body>
+
+
+                </ListItem>
+            )
+        }) :
+            <Text>Loading</Text>
         return (
             <ImageBackground source={background} style={{
                 width: 425,
                 height: 800}}>
-               
+               <Header hasTabs/>
                     <Content style={{ paddingTop: 50 }}>
                         <Card style={{ flex: 1 }}>
                             <CardItem>
@@ -165,56 +203,22 @@ class BoxScore extends Component {
                              
                             </CardItem>
                             <List>
-                            <ScrollView contentContainerStyle={{flex: 2}}>
-                                <Body style={{ flexDirection: 'row'}}>
-                                <Thumbnail source={images[this.props.gameInfo.awayTeam]} />
-                                <Text>{this.props.gameInfo.awayTeamName}</Text>
-                                </Body>
-                                {!this.state.loading ? this.state.awayPlayers.map((player, i) => {
-                                    return (
-                                        <ListItem avatar key={i} style={{ flexDirection: 'column', alignContent: 'center' }}>
-                                                <Text>{player.name}</Text>
-                                            <Body style={{flexDirection: 'row'}}>
-                                                <Text note>PTS: {player.PTS}</Text>
-                                                <Text note>REB: {player.reb}</Text>
-                                                <Text note>AST: {player.assists}</Text>
-                                                <Text note>STL: {player.stl}</Text>
-                                                <Text note>FG% {player.FGPCT}</Text>
-                                        
-                                            </Body>
-                                        
-                                        </ListItem>
-                                        )
-                                        i++;
-                                }) :
-                                    <Text>Loading</Text>
-                                }
-                            </ScrollView>
-                            <ScrollView>
+                            <Tabs initialPage={1}>
+                                <Tab heading={this.props.gameInfo.awayTeamName}>
+                                    <Body style={{ flexDirection: 'row'}}>
+                                    <Thumbnail source={images[this.props.gameInfo.awayTeam]} />
+                                    <Text>{this.props.gameInfo.awayTeamName}</Text>
+                                    </Body>
+                                    {awayTeamStats}
+                                </Tab>
+                                <Tab heading={this.props.gameInfo.homeTeamName}>
                                     <Body style={{ flexDirection: 'row' }}>
                                         <Thumbnail source={images[this.props.gameInfo.homeTeam]} />
                                         <Text>{this.props.gameInfo.homeTeamName}</Text>
                                     </Body>
-                                {!this.state.loading ? this.state.homePlayers.map((player, i) => {
-                                    i++;
-                                    return (
-                                        <ListItem avatar key={i} style={{flexDirection: 'column', alignContent: 'center'}}>
-                                                <Text>{player.name}</Text>
-                                            <Body style={{flexDirection: 'row'}}>
-                                                <Text note>PTS: {player.PTS}</Text>
-                                                <Text note>REB: {player.reb}</Text>
-                                                <Text note>AST: {player.assists}</Text>
-                                                <Text note>STL: {player.stl}</Text>
-                                                <Text note>FG% {player.FGPCT}</Text>
-                                            </Body>
-                                       
-                                           
-                                        </ListItem>
-                                     )
-                                     }) :
-                                    <Text>Loading</Text>
-                            }
-                            </ScrollView>
+                                    {homeTeamStats}
+                                </Tab>
+                            </Tabs>
                             </List>
                         </Card>
                     </Content>
