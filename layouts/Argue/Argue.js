@@ -25,7 +25,7 @@ import { NBA_API_KEY } from 'react-native-dotenv'
 import { Actions } from 'react-native-router-flux'
 import { logoutUser } from '../../redux/reducers/users';
 import { bindActionCreators } from 'redux';
-
+import AutoSuggest from 'react-native-autosuggest';
 
 
 const mapStateToProps = state => ({
@@ -165,6 +165,9 @@ class Argue extends Component {
   }
 
   render(){
+    const searchablePlayerNames = this.state.players.map((player) => {
+      return `${player.firstName} ${player.lastName}`
+    });
     return (
       <Container>
         <Content>
@@ -172,10 +175,14 @@ class Argue extends Component {
           <Header searchBar rounded>
             <Item>
               <Icon name="ios-search" />
-              <Input placeholder="Search by Player Name"
+              <AutoSuggest placeholder="Search by Player Name"
                 onChangeText={(query) => {this.setState({searchPlayers: query})}}
-              />
-                <Icon name="ios-person" />
+                terms={searchablePlayerNames}
+                // rowWrapperStyles={{backgroundColor: 'white'}}
+                // onItemPress={(query) => { console.log("clicked", query)}}
+              >
+                <Text>{this.state.searchPlayers}</Text>
+              </AutoSuggest>
               </Item>
               <Button transparent
                 onPress={() => this.searchByName()}>

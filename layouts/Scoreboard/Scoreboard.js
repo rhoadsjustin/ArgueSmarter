@@ -68,7 +68,7 @@ class Scoreboard extends Component {
                   return cleanGameData = JSON.parse(data)
                 })
                 .then((cleanGameData) => gamesList = cleanGameData["scoreboard"].gameScore.map(game => {
-                   
+
                     return {
                         awayTeam: game.game.awayTeam.Abbreviation,
                         awayTeamScore: game.awayScore,
@@ -92,7 +92,7 @@ class Scoreboard extends Component {
                 .then((gamesList) => this.setState({
                     games: gamesList
                 },
-                console.log("Here's the games List: ", gamesList))) 
+                console.log("Here's the games List: ", gamesList)))
             .catch((err) => {console.log("error", err)})
         }
 
@@ -144,15 +144,15 @@ class Scoreboard extends Component {
                 }}>
                 <Container>
                         <View style={{ justifyContent: 'space-around', flexDirection: 'row', paddingTop: 10}}>
-                            <Button onPress={this.goBackADay.bind(this)} style={{ backgroundColor: 'transparent' }}>
+                            <Button onPress={this.goBackADay.bind(this)} style={{ backgroundColor: 'transparent'}}>
                                     <Icon name="ios-arrow-dropleft" />
                                 </Button>
-                    <Text style={{ alignSelf: 'center', fontSize: 18, paddingTop: 20}}>{this.state.shortDate}</Text>
+                    <Text style={{ alignSelf: 'center', fontSize: 28, paddingTop: 20}}>{this.state.shortDate}</Text>
                                 <Button onPress={this.goForwardADay.bind(this)} style={{backgroundColor: 'transparent'}}>
                                     <Icon name="ios-arrow-dropright" />
                                 </Button>
                         </View>
-                        <ScrollView contentContainerStyle={{flex: 0, height: '100%'}}>
+                        <ScrollView horizontal={true} contentContainerStyle={{flex: 0, height: '100%', marginTop: '50%'}}>
                     <Container style={{ flex: 1, justifyContent: 'space-around'  ,flexDirection: 'row', flexWrap: 'wrap' }}>
                         {/* TODO: input field for game Date or calendar button */}
                             { this.state.games.map((game, i) => {
@@ -160,7 +160,7 @@ class Scoreboard extends Component {
                                 let awayTeamImage = game.awayTeam
                                 let homeTeamImage = game.homeTeam
                                 return (
-                                    <TouchableHighlight key={i} style={{ backgroundColor: 'rgba(52, 52, 52, 0.8)', margin: 10, width: 150, height: 175, borderRadius: 10 }} onPress={() => Actions.boxscore({ gameInfo: this.state.games[i] })}> 
+                                    <TouchableHighlight key={i} style={{ backgroundColor: 'rgba(52, 52, 52, 0.8)', margin: 10, width: 150, height: 175, borderRadius: 10 }} onPress={() => Actions.boxscore({ gameInfo: this.state.games[i] })}>
                                         <Card style={styles.scoreBoard}>
                                             <CardItem style={styles.scoreBoard}>
                                                 <Left>
@@ -177,11 +177,11 @@ class Scoreboard extends Component {
                                                     </Body>
                                                  </CardItem>
                                             <CardItem style={styles.scoreBoard}>
-                                                <Text style={styles.gameInfoText}>Location: {game.gameLocation}</Text> 
+                                                <Text style={styles.gameInfoText}>Location: {game.gameLocation}</Text>
                                             </CardItem>
                                         </Card>
                                         </TouchableHighlight>
-                                
+
                                 )
                                 i++;
                             })}
