@@ -12,11 +12,25 @@ export default {
     zIndex: 2,
   },
   scroll: {
-    zIndex: 1,
-    height: 400,
+    alignSelf: 'center',
   },
   playerPressed: {
-    backgroundColor: '#FF0000',
+    backgroundColor: 'blue',
+    borderWidth: 2,
+    borderColor: 'black',
+    width: 300,
+    alignContent: 'center'
+  },
+  player: {
+    borderWidth: 2,
+    borderColor: 'black',
+    borderRadius: 20,
+    marginTop: 5,
+    marginBottom: 5,
+    width: 300,
+    alignContent: 'center'
+
+
   },
   argue: {
       fontFamily: 'ESPN-Bold',
@@ -33,10 +47,17 @@ export default {
   argueContainer: {
     flexDirection: 'column',
     justifyContent: 'center',
-    alignContent: 'center'
+    alignContent: 'center',
+    paddingTop: 5,
+    borderBottomWidth: 2,
+    borderBottomColor: 'black'
   },
   playerText: {
     alignSelf: 'center',
     margin: 10
+  },
+  playerInfoText: {
+    alignItems: 'flex-end',
+    margin: 2
   }
 };

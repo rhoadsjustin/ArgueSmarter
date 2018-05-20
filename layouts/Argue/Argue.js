@@ -15,7 +15,9 @@ import {
   Icon,
   Input,
   Item,
-  Spinner
+  Spinner,
+  Card,
+  CardItem
 } from 'native-base';
 import { View, ScrollView, ActivityIndicator, Button as ButtonR } from 'react-native';
 import TextField from '../../components/TextField';
@@ -175,59 +177,57 @@ class Argue extends Component {
               <Input placeholder="Search by Player Name"
                 onChangeText={(query) => {this.setState({searchPlayers: query})}}
               />
-                <Icon name="ios-person" />
               </Item>
               <Button transparent
                 onPress={() => this.searchByName()}>
                 <Icon name="ios-navigate" />
               </Button>
             </Header>
-            <View>
-              <Button
-                rounded
-                iconRight
-                disabled={this.state.canArgue}
-                style={styles.button}
-                onPress={ (arguePlayers) => Actions.arguePlayers({p1: this.state.p1, p2: this.state.p2})}>
-                <Text>Go Argue</Text>
-                <Icon name="ios-exit-outline" />
-              </Button>
-            </View>
-
-        <ScrollView style={styles.scroll}>
+          <View style={styles.argueContainer}>
+            <Text style={styles.argue} title>Arguing:</Text>
+            <Text style={styles.playerText}>{this.state.p1.name}</Text>
+            <Text style={styles.vs} title>VS:</Text>
+            <Text style={styles.playerText}>{this.state.p2.name}</Text>
+          </View>
+        <ScrollView contentContainerStyle={styles.scroll}>
           <ActivityIndicator animating={this.state.isLoading} size='large'/>
           { this.state.filteredPlayers.map((player) => {
             return (
-              <ListItem
-                avatar
-                key={player.id}
-                style={player.id === this.state.playerOneSelected || player.id === this.state.playerTwoSelected ? styles.playerPressed : styles.player }
-                onPress={() => this.playersToArgueAbout(player)}
-                >
-                <Left>
-                  <Thumbnail source={{ uri: player.photo }} />
-                </Left>
-                <Body>
-                  <Text>{player.firstName} {player.lastName}</Text>
-                  <Text note>Years in the League: {player.experience}</Text>
-                  <Text note>Jersey #: {player.jersey}</Text>
-                  <Text note>Position: {player.position}</Text>
-                  <Text note>College: {player.college}</Text>
-                </Body>
-                <Right>
-                  <Text note>Team: {player.team}</Text>
-                  <Text>Click to Argue</Text>
-                </Right>
-              </ListItem>
+              <Card
+                  key={player.id}
+                  style={player.id === this.state.playerOneSelected || player.id === this.state.playerTwoSelected ? styles.playerPressed : styles.player }
+                  onPress={() => this.playersToArgueAbout(player)}
+                  >
+                  <CardItem header>
+                    <Text style={styles.playerInfoText}>{player.firstName} {player.lastName}</Text>
+                  </CardItem>
+                  <CardItem>
+                    <Thumbnail source={{ uri: player.photo }} />
+                  </CardItem>
+                  <CardItem>
+                    <Body>
+                      <Text note style={styles.playerInfoText}>Team: {player.team}</Text>
+                      <Text note style={styles.playerInfoText}>Position: {player.position}</Text>
+                    </Body>
+                  </CardItem>
+                  <CardItem footer>
+                    <Text>Click to Argue</Text>
+                  </CardItem>
+              </Card>
             )
           })}
         </ScrollView>
-        <View style={styles.argueContainer}>
-          <Text style={styles.argue} title>Arguing:</Text>
-          <Text style={styles.playerText}>{this.state.p1.name}</Text>
-          <Text style={styles.vs} title>VS:</Text>
-          <Text style={styles.playerText}>{this.state.p2.name}</Text>
-        </View>
+          <View>
+            <Button
+              rounded
+              iconRight
+              disabled={this.state.canArgue}
+              style={styles.button}
+              onPress={(arguePlayers) => Actions.arguePlayers({ p1: this.state.p1, p2: this.state.p2 })}>
+              <Text>Go Argue</Text>
+              <Icon name="ios-exit-outline" />
+            </Button>
+          </View>
         </Content>
       </Container>
     );

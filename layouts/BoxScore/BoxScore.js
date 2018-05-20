@@ -137,6 +137,8 @@ class BoxScore extends Component {
     }
     render() {
         const favTeam = this.props.user.favTeam;
+        const awayTeam = this.props.gameInfo.awayTeam;
+        const homeTeam = this.props.gameInfo.homeTeam;
 
         const awayTeamStats = !this.state.loading ? this.state.awayPlayers.map((player, i) => {
             return (
@@ -184,14 +186,14 @@ class BoxScore extends Component {
                         <Card style={{ flex: 1 }}>
                             <CardItem>
                                 <Left>
-                                    <Thumbnail source={images[this.props.gameInfo.awayTeam]} />
+                                    <Thumbnail style={{ backgroundColor: 'grey'}} source={images[awayTeam]} />
                                 </Left>
                                     <Body>
                                         <Text>{this.props.gameInfo.awayTeamName} vs. {this.props.gameInfo.homeTeamName}</Text>
                                         <Text style={{fontSize: 20}}> {this.props.gameInfo.awayTeamScore} - {this.props.gameInfo.homeTeamScore} </Text>
                                     </Body>
                                 <Right>
-                                    <Thumbnail source={images[this.props.gameInfo.homeTeam]} />
+                                    <Thumbnail style={{ backgroundColor: 'grey'}} source={images[homeTeam]} />
                                 </Right>
                             </CardItem>
                             <CardItem>
